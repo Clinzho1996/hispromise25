@@ -86,7 +86,7 @@ function Header() {
 			<Modal
 				isOpen={isModalOpen}
 				onClose={closeModal}
-				className="w-full sm:w-[500px]">
+				className="w-[95%] mx-auto sm:w-[500px]">
 				<div className="flex flex-col gap-3">
 					<div className="flex flex-row justify-between items-center">
 						<div className="flex flex-row justify-start items-center gap-2">

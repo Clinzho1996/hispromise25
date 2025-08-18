@@ -137,7 +137,7 @@ function Hero() {
 
 		const title = "Clinton & Promise's Wedding";
 		const description = "Join us as we celebrate our wedding!";
-		const location = "Wedding Venue"; // Replace with actual location
+		const location = "The Elevation Church Ogba, Ikeja, Lagos, Nigeria"; // Replace with actual location
 
 		if (calendarType === "google") {
 			// Google Calendar URL
@@ -263,7 +263,7 @@ function Hero() {
 							</div>
 							<div>
 								<p
-									className={`${spaceGrotesk.className} text-lg text-black font-semibold`}>
+									className={`${spaceGrotesk.className} text-[16px] sm:text-lg text-black font-semibold`}>
 									Clinton & Promise - Wedding Website
 								</p>
 								<p

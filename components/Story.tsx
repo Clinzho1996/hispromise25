@@ -32,7 +32,7 @@ function Story() {
 
 			<div className="border rounded-lg p-4 border-[#EDE6E2] flex flex-col sm:flex-row justify-between items-center w-full gap-3">
 				<div className="flex flex-row justify-start items-center w-full gap-3 border rounded-lg p-3 border-[#EDE6E2]">
-					<div>
+					<div className="w-[25%]">
 						<Image
 							src="/images/dc.png"
 							alt="Link Preview"
@@ -41,7 +41,7 @@ function Story() {
 							className="rounded-lg"
 						/>
 					</div>
-					<div>
+					<div className="w-[75%]">
 						<p
 							className={`${spaceGrotesk.className} text-lg text-black font-semibold`}>
 							Dev Clinton
@@ -52,7 +52,7 @@ function Story() {
 					</div>
 				</div>
 				<div className="flex flex-row justify-start items-center w-full gap-3 border rounded-lg p-3 border-[#EDE6E2]">
-					<div>
+					<div className="w-[25%]">
 						<Image
 							src="/images/pr.png"
 							alt="Link Preview"
@@ -61,7 +61,7 @@ function Story() {
 							className="rounded-lg"
 						/>
 					</div>
-					<div>
+					<div className="w-[75%]">
 						<p
 							className={`${spaceGrotesk.className} text-lg text-black font-semibold`}>
 							Promise

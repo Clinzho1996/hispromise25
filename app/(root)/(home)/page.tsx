@@ -6,7 +6,7 @@ function HomePage() {
 	return (
 		<div>
 			<Header />
-			<div className="flex flex-col  min-h-screen p-6">
+			<div className="flex flex-col  w-full max-w-[100vw] p-3 sm:p-6">
 				<Hero />
 				<Story />
 			</div>

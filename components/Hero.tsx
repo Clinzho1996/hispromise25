@@ -176,7 +176,7 @@ function Hero() {
 	};
 
 	return (
-		<div className="flex flex-col sm:flex-row items-center w-full border border-[#EDE6E2] rounded-lg p-6 gap-4">
+		<div className="flex flex-col sm:flex-row items-center w-full border border-[#EDE6E2] rounded-lg p-3 sm:p-6 gap-4">
 			<Modal
 				isOpen={isShareModalOpen}
 				onClose={closeModal}
@@ -314,22 +314,22 @@ function Hero() {
 
 				<div className="flex flex-row justify-between items-center gap-3 mt-4">
 					<div
-						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-4 rounded-lg border-[#EDE6E2] w-full`}>
+						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-2 sm:p-4 rounded-lg border-[#EDE6E2] w-full`}>
 						<p className="text-lg text-black font-bold">{timeLeft.days}</p>
 						<p className="font-normal text-xs">Days</p>
 					</div>
 					<div
-						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-4 rounded-lg border-[#EDE6E2] w-full`}>
+						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-2 sm:p-4 rounded-lg border-[#EDE6E2] w-full`}>
 						<p className="text-lg text-black font-bold">{timeLeft.hours}</p>
 						<p className="font-normal text-xs">Hours</p>
 					</div>
 					<div
-						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-4 rounded-lg border-[#EDE6E2] w-full`}>
+						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-2 sm:p-4 rounded-lg border-[#EDE6E2] w-full`}>
 						<p className="text-lg text-black font-bold">{timeLeft.minutes}</p>
 						<p className="font-normal text-xs">Minutes</p>
 					</div>
 					<div
-						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-4 rounded-lg border-[#EDE6E2] w-full`}>
+						className={`${spaceGrotesk.className} text-sm text-gray-500 text-center border p-2 sm:p-4 rounded-lg border-[#EDE6E2] w-full`}>
 						<p className="text-lg text-black font-bold">{timeLeft.seconds}</p>
 						<p className="font-normal text-xs">Seconds</p>
 					</div>

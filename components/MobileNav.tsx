@@ -94,40 +94,41 @@ const MobileNav = () => {
 											pathname.startsWith(`${item.route}/`);
 
 										return (
-											<Link
-												href={item.route}
-												key={item.label}
-												className={cn(
-													"flex items-center  justify-start rounded-[8px] mx-auto sm:mx-4 my-0 border-[1px] border-[#FFFFFF0A] w-[90%]",
-													{
-														"shadow-inner shadow-[#D69A0F] border-[1px] border-[#D69A0F]":
-															isActive,
-														"p-2": !isCollapsed,
-														"p-3": isCollapsed,
-													}
-												)}>
-												<div className="flex gap-2 items-center">
-													{item.icon && (
-														<item.icon
-															className={cn(
-																"w-[20px] h-[20px] object-contain flex",
-																isActive ? "text-[#D69A0F]" : "text-black"
-															)}
-														/>
-													)}
-													{!isCollapsed && (
-														<p
-															className={cn(
-																"text-sm font-normal font-inter text-black",
-																{
-																	"text-[#D69A0F]": isActive,
-																}
-															)}>
-															{item.label}
-														</p>
-													)}
-												</div>
-											</Link>
+											<SheetClose asChild key={item.label}>
+												<Link
+													href={item.route}
+													className={cn(
+														"flex items-center justify-start rounded-[8px] mx-auto sm:mx-4 my-0 border-[1px] border-[#FFFFFF0A] w-[90%]",
+														{
+															"shadow-inner shadow-[#D69A0F] border-[1px] border-[#D69A0F]":
+																isActive,
+															"p-2": !isCollapsed,
+															"p-3": isCollapsed,
+														}
+													)}>
+													<div className="flex gap-2 items-center">
+														{item.icon && (
+															<item.icon
+																className={cn(
+																	"w-[20px] h-[20px] object-contain flex",
+																	isActive ? "text-[#D69A0F]" : "text-black"
+																)}
+															/>
+														)}
+														{!isCollapsed && (
+															<p
+																className={cn(
+																	"text-sm font-normal font-inter text-black",
+																	{
+																		"text-[#D69A0F]": isActive,
+																	}
+																)}>
+																{item.label}
+															</p>
+														)}
+													</div>
+												</Link>
+											</SheetClose>
 										);
 									})}
 								</div>

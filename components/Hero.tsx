@@ -190,7 +190,7 @@ function Hero() {
 								<IconShare />
 							</Button>
 							<p className={`${spaceGrotesk.className} text-lg font-semibold`}>
-								Share Clinton & Promise
+								Share Our Website
 							</p>
 						</div>
 						<Button
@@ -263,7 +263,7 @@ function Hero() {
 							</div>
 							<div>
 								<p
-									className={`${spaceGrotesk.className} text-[16px] sm:text-lg text-black font-semibold`}>
+									className={`${spaceGrotesk.className} text-[15px] sm:text-lg text-black font-semibold`}>
 									Clinton & Promise - Wedding Website
 								</p>
 								<p

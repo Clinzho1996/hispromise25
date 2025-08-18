@@ -47,7 +47,7 @@ function Story() {
 							Dev Clinton
 						</p>
 						<p className={`${spaceGrotesk.className} text-sm text-[#A8A8A8]`}>
-							Loves music, tech guru and long walks.
+							Loves music, tech guru, and a gamer.
 						</p>
 					</div>
 				</div>
@@ -67,7 +67,7 @@ function Story() {
 							Promise
 						</p>
 						<p className={`${spaceGrotesk.className} text-sm text-[#A8A8A8]`}>
-							A heart for art and marketing guru.
+							A heart for art, marketing guru, and a poet.
 						</p>
 					</div>
 				</div>

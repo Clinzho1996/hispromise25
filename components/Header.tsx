@@ -218,7 +218,7 @@ function Header() {
 				</Button>
 
 				<Link href="/rsvp">
-					<Button className="bg-[#D69A0F] text-white font-semibold">
+					<Button className="bg-[#D69A0F] text-white font-semibold cursor-pointer">
 						RSVP Now
 					</Button>
 				</Link>

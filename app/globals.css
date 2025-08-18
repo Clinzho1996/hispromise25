@@ -29,6 +29,10 @@ body {
 	transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
 }
 
+.breadcrumb {
+	background: rgba(0, 0, 0, 0.3);
+}
+
 @layer utilities {
 	.flex-center {
 		@apply flex justify-center items-center;

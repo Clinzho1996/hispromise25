@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 
 function Header() {
 	return (
-		<div className="p-6 flex flex-col sm:flex-row justify-between gap-3 items-center w-full border-b border-b-[#E2E4E9]">
+		<div className="hidden p-6 sm:flex flex-col sm:flex-row justify-between gap-3 items-center w-full border-b border-b-[#E2E4E9]">
 			<div className="flex flex-row justify-start border-[#A8A8A8] items-center gap-2 border rounded-lg px-3 py-0 w-full">
 				<IconSearch color="#A8A8A8" />
 				<Input

@@ -16,6 +16,9 @@ export default {
 			},
 		},
 		extend: {
+			fontFamily: {
+				grotesk: ["var(--font-space-grotesk)", "sans-serif"],
+			},
 			colors: {
 				primary: {
 					1: "#ede6e2",
@@ -39,11 +42,6 @@ export default {
 					3: "#6B728080",
 				},
 				red: "#F43F5E",
-			},
-
-			fontFamily: {
-				inter: "var(--font-inter)",
-				"ibm-plex-serif": "var(--font-ibm-plex-serif)",
 			},
 		},
 	},

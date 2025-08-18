@@ -1,10 +1,13 @@
 "use client";
 import { overviewLinks } from "@/constants";
 import { cn } from "@/lib/utils";
+import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
 const Sidebar = () => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
@@ -37,7 +40,9 @@ const Sidebar = () => {
 								height={40}
 								className="justify-center h-full flex object-contain"
 							/>
-							<p className="text-lg font-semibold">#HisPromise25</p>
+							<p className={`${spaceGrotesk.className} text-lg font-semibold`}>
+								#HisPromise25
+							</p>
 						</Link>
 					) : (
 						<Link href="/" className="flex items-center justify-center w-full">
@@ -106,9 +111,12 @@ const Sidebar = () => {
 
 								{!isCollapsed && (
 									<p
-										className={cn("text-sm font-normal font-inter text-dark", {
-											"text-[#fff]": isActive,
-										})}>
+										className={cn(
+											`${spaceGrotesk.className} text-sm font-normal font-inter text-dark`,
+											{
+												"text-[#fff]": isActive,
+											}
+										)}>
 										{item.label}
 									</p>
 								)}

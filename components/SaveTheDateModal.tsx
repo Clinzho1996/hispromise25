@@ -34,7 +34,7 @@ export default function SaveTheDateModal({
 
 				<div className="mb-6">
 					<p className="text-gray-700 mb-2 text-xl font-semibold">
-						Clinton & Promise's Wedding
+						Clinton & Promise&apos;s Wedding
 					</p>
 					<p className="text-gray-700 mb-1 font-medium">
 						December 6, 2025 at 9:00 AM

@@ -9,7 +9,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-	title: "Clinton & Promise – Two hearts, one story.",
+	title: "Clinton & Promise – Two hearts, One story.",
 	description:
 		"From how we met to ‘I Do’ – Confidence Emonena & Promise Ogobi wedding website. RSVP, explore events, view our gallery, and share in the joy.",
 	icons: {

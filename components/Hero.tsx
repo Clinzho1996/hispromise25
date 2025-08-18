@@ -8,6 +8,7 @@ import {
 } from "@tabler/icons-react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import SaveTheDateModal from "./SaveTheDateModal"; // Import your modal component
 import { Button } from "./ui/button";
@@ -120,7 +121,7 @@ function Hero() {
 			<div className="flex flex-col w-full border p-4 rounded-lg gap-2 border-[#EDE6E2] h-full">
 				<h2
 					className={`${spaceGrotesk.className} text-2xl sm:text-4xl font-bold font-space-grotesk`}>
-					Clinton & Promise - Two hearts, one story
+					Clinton & Promise - Two hearts, One story
 				</h2>
 				<p className={`${spaceGrotesk.className} text-sm text-gray-500`}>
 					We can&apos;t wait to celebrate with you!
@@ -156,32 +157,38 @@ function Hero() {
 						Save the Date
 					</Button>
 
-					<Button
-						className={`${spaceGrotesk.className} bg-[#D69A0F] text-white font-semibold`}>
-						RSVP Now
-					</Button>
+					<Link href="/rsvp">
+						<Button
+							className={`${spaceGrotesk.className} bg-[#D69A0F] text-white font-semibold`}>
+							RSVP Now
+						</Button>
+					</Link>
 				</div>
 
 				<div className="flex flex-row flex-wrap justify-start items-center gap-3 w-full mt-4">
-					<button
+					<Link
+						href="/our-story"
 						className={`${spaceGrotesk.className} flex flex-row justify-start items-center rounded-lg gap-3 border p-4   border-[#E2E4E9] bg-white text-dark-3 hover:bg-[#F7F3F1]`}>
 						<IconBook /> Our Story
-					</button>
+					</Link>
 
-					<button
+					<Link
+						href="/events"
 						className={`${spaceGrotesk.className} flex flex-row justify-start items-center rounded-lg gap-3 border p-4   border-[#E2E4E9] bg-white text-dark-3 hover:bg-[#F7F3F1]`}>
 						<IconCalendar /> Events
-					</button>
+					</Link>
 
-					<button
+					<Link
+						href="/rsvp"
 						className={`${spaceGrotesk.className} flex flex-row justify-start items-center rounded-lg gap-3 border p-4   border-[#E2E4E9] bg-white text-dark-3 hover:bg-[#F7F3F1]`}>
 						<IconSend /> RSVP
-					</button>
+					</Link>
 
-					<button
+					<Link
+						href="/gallery"
 						className={`${spaceGrotesk.className} flex flex-row justify-start items-center rounded-lg gap-3 border p-4   border-[#E2E4E9] bg-white text-dark-3 hover:bg-[#F7F3F1]`}>
 						<IconBrandAppgallery /> Gallery
-					</button>
+					</Link>
 				</div>
 			</div>
 

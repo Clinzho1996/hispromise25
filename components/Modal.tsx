@@ -31,7 +31,7 @@ const Modal = ({
 			className={`modal-overlay ${isOpen ? "fade-in" : "fade-out"}`}
 			onClick={onClose}>
 			<div
-				className={`modal-content bg-[#F6F8FA] p-5 border-[1px] border-[#B5F090] ${
+				className={`modal-content bg-[#F6F8FA] p-5 border-[1px] border-[#D69A0F] ${
 					isOpen ? "slide-in" : "slide-out"
 				} ${className}`}
 				onClick={(e) => e.stopPropagation()}>

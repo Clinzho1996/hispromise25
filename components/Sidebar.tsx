@@ -28,7 +28,7 @@ const Sidebar = () => {
 			)}>
 			<div className="flex flex-1 flex-col gap-2">
 				{/* Logo and Toggle Button */}
-				<div className="flex items-center justify-between border-b-[#CED0D51A] p-3 h-[78px]">
+				<div className="flex items-center justify-between border-b-[#CED0D51A] p-3 h-[78px] border-b">
 					{!isCollapsed ? (
 						<Link
 							href="/"
@@ -74,7 +74,6 @@ const Sidebar = () => {
 
 				{!isCollapsed && (
 					<>
-						<hr className="border-[#EDE6E2] border-1	" />{" "}
 						<p className="text-sm font-normal text-gray-400 pl-4 font-inter py-2">
 							OVERVIEW
 						</p>

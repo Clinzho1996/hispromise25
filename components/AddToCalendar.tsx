@@ -82,7 +82,7 @@ function AddToCalendarModal({
 			isOpen={isOpen}
 			onClose={onClose}
 			className="w-[95%] mx-auto sm:w-[400px]">
-			<div className="flex flex-col gap-4">
+			<div className="flex flex-col gap-2">
 				<div className="flex justify-between items-center mb-4">
 					<h3 className="text-xl font-bold text-[#7D3A3F]">Save the Date</h3>
 					<button
@@ -129,7 +129,7 @@ function AddToCalendarModal({
 
 					<Button
 						onClick={() => handleAddToCalendar("apple")}
-						className={`${spaceGrotesk.className} flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white`}>
+						className={`${spaceGrotesk.className} w-full bg-black hover:bg-gray-800 text-white flex items-center justify-center gap-2`}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="16"
@@ -142,13 +142,12 @@ function AddToCalendarModal({
 					</Button>
 				</div>
 
-				<div className="flex justify-end mt-4">
-					<Button
+				<div className="mt-4 text-center">
+					<button
 						onClick={onClose}
-						variant="outline"
-						className={`${spaceGrotesk.className}`}>
-						Cancel
-					</Button>
+						className="text-sm text-gray-500 hover:text-gray-700 underline">
+						Maybe later
+					</button>
 				</div>
 			</div>
 		</Modal>

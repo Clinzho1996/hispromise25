@@ -357,7 +357,7 @@ function Header() {
 				{isSearchModalOpen && searchQuery && searchResults.length === 0 && (
 					<div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#EDE6E2] rounded-lg shadow-lg z-50 p-4">
 						<p className="text-[#A8A8A8] text-center">
-							No results found for "{searchQuery}"
+							No results found for &quot;{searchQuery}&quot;
 						</p>
 					</div>
 				)}

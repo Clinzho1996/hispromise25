@@ -55,23 +55,20 @@ function RSVP() {
 
 		try {
 			// Send data to Google Sheets via Google Apps Script
-			const response = await fetch(
-				"https://script.google.com/macros/s/AKfycbz3PQYsQqaGKUyBny9l0vBzjX-fgJ7GQWTSZc-foAJfNWh1KiwD5KedBKoPigX-u9m5/exec",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						name: formData.name,
-						email: formData.email,
-						phone: formData.phone,
-						guests: formData.guests,
-						mealPreference: formData.mealPreference,
-						timestamp: new Date().toISOString(),
-					}),
-				}
-			);
+			const response = await fetch("/api/submit-rsvp", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					name: formData.name,
+					email: formData.email,
+					phone: formData.phone,
+					guests: formData.guests,
+					mealPreference: formData.mealPreference,
+					timestamp: new Date().toISOString(),
+				}),
+			});
 
 			if (response.ok) {
 				// Show success toast

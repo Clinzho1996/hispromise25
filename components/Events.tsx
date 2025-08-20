@@ -1,6 +1,6 @@
 "use client";
 
-import { IconCalendarPlus, IconMap } from "@tabler/icons-react";
+import { IconCalendarPlus, IconMap, IconShirt } from "@tabler/icons-react";
 import { Space_Grotesk } from "next/font/google";
 import { useState } from "react";
 import AddToCalendarModal from "./AddToCalendar";
@@ -95,6 +95,13 @@ function Events() {
 							</div>
 						</div>
 					))}
+				</div>
+
+				<div className="flex flex-row justify-start items-center bg-[#F7E6E9] p-2 rounded-full w-fit gap-2">
+					<IconShirt size={16} color="#7D3A3F" />
+					<p className="text-sm text-[#7D3A3F] font-semibold">
+						Dress Code: White, Gold, and Deep Green
+					</p>
 				</div>
 			</div>
 

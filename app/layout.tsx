@@ -27,7 +27,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${spaceGrotesk.variable} antialiased`}>
 				{children}
-				<Toaster />
+				<Toaster position="top-right" richColors />
 			</body>
 		</html>
 	);

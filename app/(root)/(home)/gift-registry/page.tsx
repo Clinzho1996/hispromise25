@@ -14,7 +14,6 @@ import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
-import { usePaystackPayment } from "react-paystack";
 import { toast } from "sonner";
 
 // Define types
@@ -30,28 +29,17 @@ interface GiftItem {
 	details: string;
 }
 
-// Define Paystack config type
-interface PaystackConfig {
-	reference: string;
-	email: string;
-	amount: number;
-	publicKey: string;
-	currency: string;
-	metadata?: {
-		gift_id: number;
-		gift_name: string;
-		custom_fields: Array<{
-			display_name: string;
-			variable_name: string;
-			value: string;
-		}>;
-	};
+declare global {
+	interface Window {
+		PaystackPop: any;
+	}
 }
 
 function GiftRegistry() {
 	const [selectedItem, setSelectedItem] = useState<GiftItem | null>(null);
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [pledgeAmount, setPledgeAmount] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
 
 	// Sample gift data
 	const giftItems: GiftItem[] = [
@@ -145,45 +133,56 @@ function GiftRegistry() {
 		setIsDialogOpen(true);
 	};
 
-	// Fix the Paystack payment initialization
 	const initializePaystackPayment = (item: GiftItem, amount: number) => {
-		const config: PaystackConfig = {
-			reference: new Date().getTime().toString(),
-			email: "guest@example.com",
-			amount: amount * 100,
-			publicKey:
-				process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY ||
-				"pk_test_your_public_key",
-			currency: "NGN",
-			metadata: {
-				gift_id: item.id,
-				gift_name: item.name,
-				custom_fields: [
-					{
-						display_name: "Gift Item",
-						variable_name: "gift_item",
-						value: item.name,
-					},
-				],
-			},
+		setIsLoading(true);
+
+		// Load Paystack script dynamically
+		const script = document.createElement("script");
+		script.src = "https://js.paystack.co/v1/inline.js";
+		script.async = true;
+
+		script.onload = () => {
+			const handler = window.PaystackPop.setup({
+				key:
+					process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY ||
+					"pk_test_your_public_key",
+				email: "guest@example.com", // In a real app, collect this from user
+				amount: amount * 100, // Convert to kobo
+				currency: "NGN",
+				ref: "GIFT_" + new Date().getTime(),
+				metadata: {
+					custom_fields: [
+						{
+							display_name: "Gift Item",
+							variable_name: "gift_item",
+							value: item.name,
+						},
+					],
+				},
+				callback: function (response: any) {
+					toast.success("Payment successful!", {
+						description: `Thank you for pledging ${formatCurrency(
+							amount
+						)} towards ${item.name}`,
+					});
+					setIsLoading(false);
+					// Update your database here
+				},
+				onClose: function () {
+					toast.info("Payment cancelled");
+					setIsLoading(false);
+				},
+			});
+
+			handler.openIframe();
 		};
 
-		// @ts-ignore - The react-paystack types might not be perfect
-		const initializePayment = usePaystackPayment(config);
+		script.onerror = () => {
+			toast.error("Failed to load payment processor");
+			setIsLoading(false);
+		};
 
-		initializePayment({
-			onSuccess: (response: any) => {
-				toast.success("Payment successful!", {
-					description: `Thank you for pledging ${formatCurrency(
-						amount
-					)} towards ${item.name}`,
-				});
-				// Update the pledged amount in your database here
-			},
-			onClose: () => {
-				toast.info("Payment cancelled");
-			},
-		});
+		document.body.appendChild(script);
 	};
 
 	const handlePledge = (item: GiftItem, amount: number) => {
@@ -259,11 +258,9 @@ function GiftRegistry() {
 									</div>
 									<Progress
 										value={calculateProgress(item.pledged, item.totalNeeded)}
-										className="h-2 bg-gray-200" // Added background for visibility
+										className="h-2 bg-gray-200"
 									/>
 									<div className="text-xs text-gray-500 mt-1 text-right">
-										{" "}
-										{/* Aligned to right */}
 										{Math.round(
 											calculateProgress(item.pledged, item.totalNeeded)
 										)}
@@ -279,9 +276,12 @@ function GiftRegistry() {
 										View Details
 									</Button>
 									<Button
-										onClick={() => handlePledge(item, 10000)} // Fixed: Now passes the correct amount
-										className="bg-[#D69A0F] hover:bg-[#bc390d] text-white text-sm">
-										Pledge {formatCurrency(10000)}
+										onClick={() => handlePledge(item, 10000)}
+										className="bg-[#D69A0F] hover:bg-[#bc390d] text-white text-sm"
+										disabled={isLoading}>
+										{isLoading
+											? "Processing..."
+											: `Pledge ${formatCurrency(10000)}`}
 									</Button>
 								</div>
 							</div>
@@ -292,9 +292,7 @@ function GiftRegistry() {
 
 			{/* Gift Details Dialog */}
 			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-				<DialogContent className="sm:max-w-2xl w-[95%] mx-auto bg-white max-h-[80vh] overflow-y-auto">
-					{" "}
-					{/* Added max height and scroll */}
+				<DialogContent className="max-w-2xl bg-white max-h-[80vh] overflow-y-auto">
 					{selectedItem && (
 						<>
 							<DialogHeader>
@@ -329,11 +327,9 @@ function GiftRegistry() {
 										selectedItem.pledged,
 										selectedItem.totalNeeded
 									)}
-									className="h-2 bg-gray-200 text-amber-300" // Added background for visibility
+									className="h-2 bg-gray-200"
 								/>
 								<div className="text-xs text-gray-500 mt-1 text-right">
-									{" "}
-									{/* Aligned to right */}
 									{Math.round(
 										calculateProgress(
 											selectedItem.pledged,
@@ -350,25 +346,29 @@ function GiftRegistry() {
 									<Button
 										onClick={() => handlePledge(selectedItem, 5000)}
 										variant="outline"
-										className="text-sm">
+										className="text-sm"
+										disabled={isLoading}>
 										{formatCurrency(5000)}
 									</Button>
 									<Button
 										onClick={() => handlePledge(selectedItem, 10000)}
 										variant="outline"
-										className="text-sm">
+										className="text-sm"
+										disabled={isLoading}>
 										{formatCurrency(10000)}
 									</Button>
 									<Button
 										onClick={() => handlePledge(selectedItem, 20000)}
 										variant="outline"
-										className="text-sm">
+										className="text-sm"
+										disabled={isLoading}>
 										{formatCurrency(20000)}
 									</Button>
 									<Button
 										onClick={() => handlePledge(selectedItem, 50000)}
 										variant="outline"
-										className="text-sm">
+										className="text-sm"
+										disabled={isLoading}>
 										{formatCurrency(50000)}
 									</Button>
 								</div>
@@ -386,8 +386,9 @@ function GiftRegistry() {
 										/>
 										<Button
 											onClick={() => handlePledge(selectedItem, pledgeAmount)}
-											className="bg-[#D69A0F] hover:bg-[#bc390d] text-white">
-											Pledge
+											className="bg-[#D69A0F] hover:bg-[#bc390d] text-white"
+											disabled={isLoading}>
+											{isLoading ? "Processing..." : "Pledge"}
 										</Button>
 									</div>
 								</div>

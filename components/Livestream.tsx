@@ -75,7 +75,9 @@ function Livestream() {
 								<div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
 									<IconPlayerPlay className="text-white" size={32} />
 								</div>
-								<p className="font-semibold">You've joined the livestream!</p>
+								<p className="font-semibold">
+									You&apos;ve joined the livestream!
+								</p>
 								<p className="text-sm text-gray-600 mt-2">
 									The stream will open in a new tab. If it didn't open
 									automatically,

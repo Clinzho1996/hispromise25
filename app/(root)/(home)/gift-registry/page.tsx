@@ -78,7 +78,7 @@ function GiftRegistry() {
 			category: "Experience",
 			pledged: 250000,
 			totalNeeded: 500000,
-			image: "/images/dine.png",
+			image: "/images/mb4.png",
 			details:
 				"Help us create unforgettable memories with a honeymoon in Bali. This includes flights, accommodation, and experiences.",
 		},
@@ -90,7 +90,7 @@ function GiftRegistry() {
 			category: "Home",
 			pledged: 175000,
 			totalNeeded: 350000,
-			image: "/images/baby.png",
+			image: "/images/kitchen.webp",
 			details:
 				"A complete set of kitchen appliances including refrigerator, oven, microwave, and blender for our new home.",
 		},
@@ -102,7 +102,7 @@ function GiftRegistry() {
 			category: "Home",
 			pledged: 300000,
 			totalNeeded: 750000,
-			image: "/images/bed.png",
+			image: "/images/bed.jpg",
 			details:
 				"Contribute towards our living room set, bedroom furniture, and dining table for our new home.",
 		},
@@ -114,7 +114,7 @@ function GiftRegistry() {
 			category: "Charity",
 			pledged: 100000,
 			totalNeeded: 200000,
-			image: "/images/dine.png",
+			image: "/images/char.jpeg",
 			details:
 				"Instead of a gift for us, consider donating to the Red Cross in our name to help those in need.",
 		},
@@ -126,7 +126,7 @@ function GiftRegistry() {
 			category: "Experience",
 			pledged: 150000,
 			totalNeeded: 300000,
-			image: "/images/vac.png",
+			image: "/images/vac.jpg",
 			details:
 				"Help us enjoy an adventurous experience like scuba diving, hot air balloon ride, or safari tour.",
 		},
@@ -138,7 +138,7 @@ function GiftRegistry() {
 			category: "Home",
 			pledged: 400000,
 			totalNeeded: 1000000,
-			image: "/images/stan.png",
+			image: "/images/renovate.jpg",
 			details:
 				"We're planning some renovations to make our home more comfortable. Any contribution is appreciated!",
 		},

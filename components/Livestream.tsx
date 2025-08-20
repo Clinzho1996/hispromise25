@@ -5,11 +5,35 @@ import {
 	IconCopy,
 	IconPlayerPlay,
 } from "@tabler/icons-react";
+import { motion, Variants } from "framer-motion"; // Import Framer Motion
 import { Space_Grotesk } from "next/font/google";
 import { useState } from "react";
 import { Button } from "./ui/button";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
+
+// Animation variants with proper typing
+const containerVariants: Variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.2, // Stagger animation for children
+		},
+	},
+};
+
+const itemVariants: Variants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			duration: 0.8, // Slower animation
+			ease: "easeOut", // Smooth easing
+		},
+	},
+};
 
 function Livestream() {
 	const [isCopied, setIsCopied] = useState(false);
@@ -62,16 +86,28 @@ function Livestream() {
 	};
 
 	return (
-		<div
+		<motion.div
+			initial="hidden"
+			whileInView="visible"
+			viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+			variants={containerVariants}
 			className={`${spaceGrotesk.className} mt-4 border rounded-lg p-4 border-[#EDE6E2] flex flex-col gap-4`}>
-			<h2 className="text-lg font-semibold">Wedding Livestream</h2>
+			<motion.h2 variants={itemVariants} className="text-lg font-semibold">
+				Wedding Livestream
+			</motion.h2>
 
-			<div className="flex flex-col lg:flex-row gap-6">
+			<motion.div
+				variants={containerVariants}
+				className="flex flex-col lg:flex-row gap-6">
 				{/* Video Player/Placeholder */}
-				<div className="lg:w-2/3">
+				<motion.div variants={itemVariants} className="lg:w-2/3">
 					<div className="bg-gray-100 rounded-lg aspect-video flex items-center justify-center relative w-full  h-full">
 						{hasJoined ? (
-							<div className="text-center p-4">
+							<motion.div
+								initial={{ opacity: 0, scale: 0.9 }}
+								animate={{ opacity: 1, scale: 1 }}
+								transition={{ duration: 0.5 }}
+								className="text-center p-4">
 								<div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
 									<IconPlayerPlay className="text-white" size={32} />
 								</div>
@@ -90,12 +126,20 @@ function Livestream() {
 									</a>
 									.
 								</p>
-							</div>
+							</motion.div>
 						) : (
-							<div className="flex flex-col items-center justify-center p-6 h-full w-full">
-								<div className="w-14 h-14 sm:w-24 sm:h-24 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.7 }}
+								className="flex flex-col items-center justify-center p-6 h-full w-full">
+								<motion.div
+									initial={{ scale: 0.8 }}
+									animate={{ scale: 1 }}
+									transition={{ delay: 0.3, duration: 0.5 }}
+									className="w-14 h-14 sm:w-24 sm:h-24 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
 									<IconPlayerPlay className="text-gray-600 text-lg sm:text-3xl" />
-								</div>
+								</motion.div>
 								<p className="font-semibold text-center">
 									Livestream will begin soon
 								</p>
@@ -103,26 +147,36 @@ function Livestream() {
 									The stream will be available on {livestreamInfo.date} at{" "}
 									{livestreamInfo.time}
 								</p>
-								<Button
-									onClick={handleJoinStream}
-									className="mt-4 bg-[#D69A0F] hover:bg-[#bc390d] text-white">
-									Join Stream
-								</Button>
-							</div>
+								<motion.div
+									whileHover={{ scale: 1.05 }}
+									whileTap={{ scale: 0.95 }}>
+									<Button
+										onClick={handleJoinStream}
+										className="mt-4 bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+										Join Stream
+									</Button>
+								</motion.div>
+							</motion.div>
 						)}
 					</div>
-				</div>
+				</motion.div>
 
 				{/* Stream Information */}
-				<div className="lg:w-1/3 flex flex-col gap-4">
-					<div className="bg-[#F7F3F1] p-4 rounded-lg">
+				<motion.div
+					variants={containerVariants}
+					className="lg:w-1/3 flex flex-col gap-4">
+					<motion.div
+						variants={itemVariants}
+						className="bg-[#F7F3F1] p-4 rounded-lg">
 						<h3 className="font-semibold mb-2">{livestreamInfo.title}</h3>
 						<p className="text-sm text-gray-600">
 							{livestreamInfo.description}
 						</p>
-					</div>
+					</motion.div>
 
-					<div className="border border-[#EDE6E2] p-4 rounded-lg">
+					<motion.div
+						variants={itemVariants}
+						className="border border-[#EDE6E2] p-4 rounded-lg">
 						<h4 className="font-semibold mb-2">Stream Details</h4>
 						<p className="text-sm">
 							<span className="font-medium">Date:</span> {livestreamInfo.date}
@@ -136,34 +190,53 @@ function Livestream() {
 								{livestreamInfo.joinUrl}
 							</span>
 						</p>
-					</div>
+					</motion.div>
 
-					<div className="flex flex-col gap-2">
-						<Button
-							onClick={handleJoinStream}
-							className="w-full bg-[#D69A0F] hover:bg-[#bc390d] text-white">
-							<IconPlayerPlay size={18} className="mr-2" />
-							Join Livestream
-						</Button>
+					<motion.div
+						variants={containerVariants}
+						className="flex flex-col gap-2">
+						<motion.div
+							variants={itemVariants}
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}>
+							<Button
+								onClick={handleJoinStream}
+								className="w-full bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+								<IconPlayerPlay size={18} className="mr-2" />
+								Join Livestream
+							</Button>
+						</motion.div>
 
-						<Button
-							onClick={handleCopyLink}
-							variant="outline"
-							className="w-full border-[#EDE6E2] hover:bg-[#F7F3F1]">
-							<IconCopy size={18} className="mr-2" />
-							{isCopied ? "Copied!" : "Copy Stream Link"}
-						</Button>
+						<motion.div
+							variants={itemVariants}
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}>
+							<Button
+								onClick={handleCopyLink}
+								variant="outline"
+								className="w-full border-[#EDE6E2] hover:bg-[#F7F3F1]">
+								<IconCopy size={18} className="mr-2" />
+								{isCopied ? "Copied!" : "Copy Stream Link"}
+							</Button>
+						</motion.div>
 
-						<Button
-							onClick={handleAddToCalendar}
-							variant="outline"
-							className="w-full border-[#EDE6E2] hover:bg-[#F7F3F1]">
-							<IconCalendarPlus size={18} className="mr-2" />
-							Add to Calendar
-						</Button>
-					</div>
+						<motion.div
+							variants={itemVariants}
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}>
+							<Button
+								onClick={handleAddToCalendar}
+								variant="outline"
+								className="w-full border-[#EDE6E2] hover:bg-[#F7F3F1]">
+								<IconCalendarPlus size={18} className="mr-2" />
+								Add to Calendar
+							</Button>
+						</motion.div>
+					</motion.div>
 
-					<div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+					<motion.div
+						variants={itemVariants}
+						className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
 						<h4 className="font-semibold text-yellow-800 text-sm mb-1">
 							Important Notes
 						</h4>
@@ -173,10 +246,10 @@ function Livestream() {
 							<li>Use headphones for better audio quality</li>
 							<li>Please keep your microphone muted during the ceremony</li>
 						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+					</motion.div>
+				</motion.div>
+			</motion.div>
+		</motion.div>
 	);
 }
 

@@ -1,11 +1,55 @@
 "use client";
 
 import { IconMessage, IconSend } from "@tabler/icons-react";
+import { AnimatePresence, motion, Variants } from "framer-motion"; // Import Framer Motion
 import { Space_Grotesk } from "next/font/google";
 import { useState } from "react";
 import { Button } from "./ui/button";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
+
+// Animation variants with proper typing
+const containerVariants: Variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.15, // Stagger animation for children
+		},
+	},
+};
+
+const itemVariants: Variants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			duration: 0.7, // Slower animation
+			ease: "easeOut", // Smooth easing
+		},
+	},
+};
+
+const formVariants: Variants = {
+	hidden: { opacity: 0, height: 0 },
+	visible: {
+		opacity: 1,
+		height: "auto",
+		transition: {
+			duration: 0.5,
+			ease: "easeOut",
+		},
+	},
+	exit: {
+		opacity: 0,
+		height: 0,
+		transition: {
+			duration: 0.3,
+			ease: "easeIn",
+		},
+	},
+};
 
 // Sample guestbook entries
 const initialEntries = [
@@ -72,58 +116,84 @@ function Guestbook() {
 	};
 
 	return (
-		<div
+		<motion.div
+			initial="hidden"
+			whileInView="visible"
+			viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+			variants={containerVariants}
 			className={`${spaceGrotesk.className} mt-4 border rounded-lg p-4 border-[#EDE6E2] flex flex-col gap-4`}>
-			<div className="flex justify-between items-center">
+			<motion.div
+				variants={itemVariants}
+				className="flex justify-between items-center">
 				<h2 className="text-lg font-semibold">Guestbook</h2>
-				<Button
-					onClick={() => setShowForm(!showForm)}
-					className="bg-[#D69A0F] hover:bg-[#bc390d] text-white">
-					<IconMessage size={18} className="mr-2" />
-					{showForm ? "Cancel" : "Leave a Message"}
-				</Button>
-			</div>
+				<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+					<Button
+						onClick={() => setShowForm(!showForm)}
+						className="bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+						<IconMessage size={18} className="mr-2" />
+						{showForm ? "Cancel" : "Leave a Message"}
+					</Button>
+				</motion.div>
+			</motion.div>
 
-			{showForm && (
-				<div className="border border-[#EDE6E2] rounded-lg p-4 bg-[#F7F3F1]">
-					<h3 className="font-semibold mb-3">Share your wishes</h3>
-					<form onSubmit={handleSubmit} className="flex flex-col gap-3">
-						<div>
-							<input
-								type="text"
-								name="name"
-								placeholder="Your name (optional)"
-								value={formData.name}
-								onChange={handleChange}
-								className="w-full p-2 border border-[#EDE6E2] rounded-lg text-sm"
-							/>
-						</div>
-						<div>
-							<textarea
-								name="message"
-								placeholder="Your message or prayer..."
-								value={formData.message}
-								onChange={handleChange}
-								rows={3}
-								required
-								className="w-full p-2 border border-[#EDE6E2] rounded-lg text-sm"
-							/>
-						</div>
-						<Button
-							type="submit"
-							className="self-end bg-[#D69A0F] hover:bg-[#bc390d] text-white"
-							disabled={!formData.message.trim()}>
-							<IconSend size={18} className="mr-2" />
-							Post Message
-						</Button>
-					</form>
-				</div>
-			)}
+			<AnimatePresence>
+				{showForm && (
+					<motion.div
+						variants={formVariants}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						className="border border-[#EDE6E2] rounded-lg p-4 bg-[#F7F3F1] overflow-hidden">
+						<h3 className="font-semibold mb-3">Share your wishes</h3>
+						<form onSubmit={handleSubmit} className="flex flex-col gap-3">
+							<motion.div variants={itemVariants}>
+								<input
+									type="text"
+									name="name"
+									placeholder="Your name (optional)"
+									value={formData.name}
+									onChange={handleChange}
+									className="w-full p-2 border border-[#EDE6E2] rounded-lg text-sm"
+								/>
+							</motion.div>
+							<motion.div variants={itemVariants}>
+								<textarea
+									name="message"
+									placeholder="Your message or prayer..."
+									value={formData.message}
+									onChange={handleChange}
+									rows={3}
+									required
+									className="w-full p-2 border border-[#EDE6E2] rounded-lg text-sm"
+								/>
+							</motion.div>
+							<motion.div
+								variants={itemVariants}
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}>
+								<Button
+									type="submit"
+									className="self-end bg-[#D69A0F] hover:bg-[#bc390d] text-white"
+									disabled={!formData.message.trim()}>
+									<IconSend size={18} className="mr-2" />
+									Post Message
+								</Button>
+							</motion.div>
+						</form>
+					</motion.div>
+				)}
+			</AnimatePresence>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-				{entries.map((entry) => (
-					<div
+			<motion.div
+				variants={containerVariants}
+				className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+				{entries.map((entry, index) => (
+					<motion.div
 						key={entry.id}
+						variants={itemVariants}
+						initial="hidden"
+						animate="visible"
+						transition={{ delay: index * 0.1 }}
 						className="border border-[#EDE6E2] rounded-lg p-4 flex flex-col gap-3">
 						<div className="flex items-center gap-3">
 							<div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
@@ -142,16 +212,18 @@ function Guestbook() {
 							<h3 className="font-semibold text-sm">{entry.name}</h3>
 						</div>
 						<p className="text-sm text-gray-600">{entry.message}</p>
-					</div>
+					</motion.div>
 				))}
-			</div>
+			</motion.div>
 
 			{entries.length === 0 && (
-				<div className="text-center py-8 text-gray-500">
+				<motion.div
+					variants={itemVariants}
+					className="text-center py-8 text-gray-500">
 					<p>No messages yet. Be the first to share your wishes!</p>
-				</div>
+				</motion.div>
 			)}
-		</div>
+		</motion.div>
 	);
 }
 

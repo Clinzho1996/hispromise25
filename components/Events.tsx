@@ -1,11 +1,35 @@
 "use client";
 
 import { IconCalendarPlus, IconMap, IconShirt } from "@tabler/icons-react";
+import { motion } from "framer-motion"; // Import Framer Motion
 import { Space_Grotesk } from "next/font/google";
 import { useState } from "react";
 import AddToCalendarModal from "./AddToCalendar";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
+
+// Animation variants with slower timing
+const containerVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.5,
+		},
+	},
+};
+
+const itemVariants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			duration: 0.8, // Slower animation
+			ease: "easeOut" as const, // Smooth easing, type-safe
+		},
+	},
+};
 
 function Events() {
 	const [selectedEvent, setSelectedEvent] = useState<{
@@ -56,14 +80,23 @@ function Events() {
 
 	return (
 		<>
-			<div
+			<motion.div
+				initial="hidden"
+				whileInView="visible"
+				viewport={{ once: true, amount: 0.1 }}
+				variants={containerVariants}
 				className={`${spaceGrotesk.className} mt-4 border rounded-lg p-4 border-[#EDE6E2] flex flex-col gap-3`}>
-				<p className="text-lg font-semibold">Events</p>
+				<motion.p variants={itemVariants} className="text-lg font-semibold">
+					Events
+				</motion.p>
 
-				<div className="flex flex-col md:flex-row justify-between items-center gap-4">
+				<motion.div
+					variants={containerVariants}
+					className="flex flex-col md:flex-row justify-between items-center gap-4">
 					{events.map((event, index) => (
-						<div
+						<motion.div
 							key={index}
+							variants={itemVariants}
 							className="border rounded-lg p-4 border-[#EDE6E2] w-full flex flex-col gap-2">
 							<p className="text-sm font-semibold">{event.title}</p>
 							<p className="text-sm text-[#A8A8A8]">
@@ -80,30 +113,40 @@ function Events() {
 							</p>
 							<p className="text-sm font-semibold">{event.location}</p>
 
-							<div
+							<motion.div
+								variants={itemVariants}
 								className="border rounded-lg p-2 border-[#EDE6E2] w-fit flex flex-row justify-start gap-2 cursor-pointer hover:bg-[#F7F3F1]"
-								onClick={() => handleAddToCalendar(event)}>
+								onClick={() => handleAddToCalendar(event)}
+								whileHover={{ scale: 1.02 }}
+								whileTap={{ scale: 0.98 }}>
 								<IconCalendarPlus size={16} />
 								<p className="text-xs font-semibold">Add to Calendar</p>
-							</div>
+							</motion.div>
 
-							<div
+							<motion.div
+								variants={itemVariants}
 								className="border rounded-lg p-2 border-[#EDE6E2] w-fit flex flex-row justify-start gap-2 cursor-pointer hover:bg-[#F7F3F1]"
-								onClick={() => handleGetDirections(event.location)}>
+								onClick={() => handleGetDirections(event.location)}
+								whileHover={{ scale: 1.02 }}
+								whileTap={{ scale: 0.98 }}>
 								<IconMap size={16} />
 								<p className="text-xs font-semibold">Get Directions</p>
-							</div>
-						</div>
+							</motion.div>
+						</motion.div>
 					))}
-				</div>
+				</motion.div>
 
-				<div className="flex flex-row justify-start items-center bg-[#F7E6E9] p-2 rounded-full w-fit gap-2">
+				<motion.div
+					variants={itemVariants}
+					className="flex flex-row justify-start items-center bg-[#F7E6E9] p-2 rounded-full w-fit gap-2"
+					transition={{ delay: 0.5 }} // Delay for the dress code to appear last
+				>
 					<IconShirt size={16} color="#7D3A3F" />
 					<p className="text-sm text-[#7D3A3F] font-semibold">
 						Dress Code: White, Gold, and Deep Green
 					</p>
-				</div>
-			</div>
+				</motion.div>
+			</motion.div>
 
 			{selectedEvent && (
 				<AddToCalendarModal

@@ -13,12 +13,13 @@ import {
 	IconSend,
 	IconShare,
 } from "@tabler/icons-react";
+import { motion } from "framer-motion"; // Import Framer Motion
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
-import SaveTheDateModal from "./SaveTheDateModal"; // Import your modal component
+import SaveTheDateModal from "./SaveTheDateModal";
 import { Button } from "./ui/button";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
@@ -33,7 +34,29 @@ function Hero() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 	const [isCopied, setIsCopied] = useState(false);
+	const [isInView, setIsInView] = useState(false); // Track if component is in view
 	const websiteUrl = "https://hispromise25.vercel.app";
+
+	// Set up intersection observer to detect when component is in view
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				setIsInView(entry.isIntersecting);
+			},
+			{ threshold: 0.3 } // Trigger when 30% of component is visible
+		);
+
+		const heroElement = document.getElementById("hero");
+		if (heroElement) {
+			observer.observe(heroElement);
+		}
+
+		return () => {
+			if (heroElement) {
+				observer.unobserve(heroElement);
+			}
+		};
+	}, []);
 
 	const closeModal = () => {
 		setIsShareModalOpen(false);
@@ -176,7 +199,12 @@ function Hero() {
 	};
 
 	return (
-		<div className="flex flex-col sm:flex-row items-center w-full border border-[#EDE6E2] rounded-lg p-3 sm:p-6 gap-4">
+		<motion.div
+			id="hero"
+			initial={{ opacity: 0, y: 50 }}
+			animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+			transition={{ duration: 0.5 }}
+			className="flex flex-col sm:flex-row items-center w-full border border-[#EDE6E2] rounded-lg p-3 sm:p-6 gap-4">
 			<Modal
 				isOpen={isShareModalOpen}
 				onClose={closeModal}
@@ -382,7 +410,7 @@ function Hero() {
 				onAddToGoogleCalendar={() => handleAddToCalendar("google")}
 				onAddToAppleCalendar={() => handleAddToCalendar("apple")}
 			/>
-		</div>
+		</motion.div>
 	);
 }
 

@@ -79,7 +79,7 @@ function Livestream() {
 									You&apos;ve joined the livestream!
 								</p>
 								<p className="text-sm text-gray-600 mt-2">
-									The stream will open in a new tab. If it didn't open
+									The stream will open in a new tab. If it didn&apos;t open
 									automatically,
 									<a
 										href={livestreamInfo.joinUrl}

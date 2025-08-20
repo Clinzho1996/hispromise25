@@ -5,8 +5,8 @@ import {
 	IconBrandAppgallery,
 	IconBrandFacebook,
 	IconBrandWhatsapp,
-	IconCalendar,
 	IconCopy,
+	IconGift,
 	IconLink,
 	IconMail,
 	IconMessage,
@@ -385,9 +385,9 @@ function Hero() {
 					</Link>
 
 					<Link
-						href="/events"
+						href="/gift-registry"
 						className={`${spaceGrotesk.className} flex flex-row justify-start items-center rounded-lg gap-3 border p-4   border-[#E2E4E9] bg-white text-dark-3 hover:bg-[#F7F3F1]`}>
-						<IconCalendar /> Events
+						<IconGift /> Gift Us
 					</Link>
 
 					<Link

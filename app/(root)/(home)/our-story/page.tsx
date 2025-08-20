@@ -289,28 +289,29 @@ function OurStory() {
 					<div className="space-y-6 mt-4">
 						<div>
 							<h4 className="font-semibold text-lg text-[#7D3A3F] mb-2">
-								Clinton's Vow
+								Clinton&apos;s Vow
 							</h4>
 							<p className="text-gray-700">
-								"Promise, from the moment I met you, I knew my life would never
-								be the same. I vow to love you unconditionally, to support your
-								dreams, and to be your partner in every adventure life brings
-								us. I promise to make you laugh every day, to be your shelter in
-								storms, and to cherish every moment we share together."
+								&apos;Promise, from the moment I met you, I knew my life would
+								never be the same. I vow to love you unconditionally, to support
+								your dreams, and to be your partner in every adventure life
+								brings us. I promise to make you laugh every day, to be your
+								shelter in storms, and to cherish every moment we share
+								together.&apos;
 							</p>
 						</div>
 
 						<div>
 							<h4 className="font-semibold text-lg text-[#7D3A3F] mb-2">
-								Promise's Vow
+								Promise&apos;s Vow
 							</h4>
 							<p className="text-gray-700">
-								"Clinton, you are my best friend and my greatest love. I vow to
-								stand by your side through all of life's challenges and
-								celebrations. I promise to nurture our love, to always be honest
-								with you, and to create a home filled with laughter, warmth, and
-								understanding. I will love you faithfully for all the days of my
-								life."
+								&apos;Clinton, you are my best friend and my greatest love. I
+								vow to stand by your side through all of life&apos;s challenges
+								and celebrations. I promise to nurture our love, to always be
+								honest with you, and to create a home filled with laughter,
+								warmth, and understanding. I will love you faithfully for all
+								the days of my life.&apos;
 							</p>
 						</div>
 					</div>

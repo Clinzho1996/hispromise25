@@ -91,7 +91,7 @@ function Livestream() {
 			whileInView="visible"
 			viewport={{ once: true, margin: "0px 0px -10% 0px" }}
 			variants={containerVariants}
-			className={`${spaceGrotesk.className} mt-4 border rounded-lg p-4 border-[#EDE6E2] flex flex-col gap-4`}>
+			className={`${spaceGrotesk.className} mt-4 border rounded-lg p-4 border-[#EDE6E2] flex flex-col gap-4 w-full max-w-[100vw]`}>
 			<motion.h2 variants={itemVariants} className="text-lg font-semibold">
 				Wedding Livestream
 			</motion.h2>
@@ -100,7 +100,7 @@ function Livestream() {
 				variants={containerVariants}
 				className="flex flex-col lg:flex-row gap-6">
 				{/* Video Player/Placeholder */}
-				<motion.div variants={itemVariants} className="lg:w-2/3">
+				<motion.div variants={itemVariants} className="lg:w-2/3 ">
 					<div className="bg-gray-100 rounded-lg aspect-video flex items-center justify-center relative w-full  h-full">
 						{hasJoined ? (
 							<motion.div

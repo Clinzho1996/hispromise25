@@ -13,7 +13,9 @@ function LiveStream() {
 					title="Join us Live"
 					description="Experience the magic as it happens from anywhere in the world."
 				/>
-				<Livestream />
+				<div className="w-full max-w-[100vw]">
+					<Livestream />
+				</div>
 			</div>
 		</div>
 	);

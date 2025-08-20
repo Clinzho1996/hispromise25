@@ -1,5 +1,7 @@
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -72,6 +74,12 @@ function Story() {
 					</div>
 				</div>
 			</div>
+
+			<Link href="/our-story">
+				<Button className="mt-4 bg-[#fff] text-black border border-[#EDE6E2] hover:bg-[#bc390d] hover:text-white w-fit">
+					View More Memories
+				</Button>
+			</Link>
 		</div>
 	);
 }

@@ -10,7 +10,7 @@ function OurStory() {
 				<BreadCrumb
 					img="/images/gallery.png"
 					title="Our Story"
-					description="A journey of love and commitment."
+					description="A beautiful journey of love and commitment."
 				/>
 			</div>
 		</div>

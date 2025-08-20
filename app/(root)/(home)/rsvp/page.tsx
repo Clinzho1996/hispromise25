@@ -1,7 +1,8 @@
 import BreadCrumb from "@/components/BreadCrumb";
 import Header from "@/components/Header";
+import RSVP from "@/components/RSVP";
 
-function RSVP() {
+function RSVPPage() {
 	return (
 		<div>
 			<Header />
@@ -10,11 +11,12 @@ function RSVP() {
 				<BreadCrumb
 					img="/images/rsvp.png"
 					title="Our RSVP"
-					description="A journey of love and commitment."
+					description="Let us know if you can make it!"
 				/>
+				<RSVP />
 			</div>
 		</div>
 	);
 }
 
-export default RSVP;
+export default RSVPPage;

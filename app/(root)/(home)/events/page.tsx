@@ -9,7 +9,7 @@ function Events() {
 				<BreadCrumb
 					img="/images/events.png"
 					title="Wedding Events"
-					description="Ceremony, Reception, and More."
+					description="Join us for a day filled with love and celebration."
 				/>
 			</div>
 		</div>

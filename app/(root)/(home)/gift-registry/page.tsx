@@ -10,7 +10,7 @@ function GiftRegistry() {
 				<BreadCrumb
 					img="/images/registry.png"
 					title="Gift Registry"
-					description="A journey of love and commitment."
+					description="A curated selection of gifts to celebrate our special day."
 				/>
 			</div>
 		</div>

@@ -278,7 +278,7 @@ function OurStory() {
 
 			{/* Vows Modal */}
 			<Dialog open={isVowsModalOpen} onOpenChange={setIsVowsModalOpen}>
-				<DialogContent className="max-w-2xl bg-white max-h-[80vh] overflow-y-auto">
+				<DialogContent className="w-[96%] mx-auto sm:max-w-2xl bg-white max-h-[80vh] overflow-y-auto">
 					<DialogHeader>
 						<DialogTitle>Our Vows</DialogTitle>
 						<DialogDescription>
@@ -320,7 +320,7 @@ function OurStory() {
 
 			{/* How We Met Modal */}
 			<Dialog open={isMeetModalOpen} onOpenChange={setIsMeetModalOpen}>
-				<DialogContent className="max-w-4xl bg-white p-0 overflow-hidden">
+				<DialogContent className="w-[96%] sm:max-w-4xl bg-white p-0 overflow-hidden mx-auto">
 					<div className="relative">
 						{/* Close button */}
 						<button

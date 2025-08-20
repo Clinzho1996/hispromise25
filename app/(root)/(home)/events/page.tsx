@@ -87,8 +87,8 @@ function Events() {
 			icon: <IconCalendarEvent size={20} />,
 		},
 		{
-			event: "Photos & Refreshments",
-			time: "11:30 AM",
+			event: "Photo Session",
+			time: "12:30 PM",
 			icon: <IconCamera size={20} />,
 		},
 		{
@@ -97,7 +97,7 @@ function Events() {
 			icon: <IconDoorEnter size={20} />,
 		},
 		{
-			event: "Dinner is Served",
+			event: "Lunch is Served",
 			time: "2:30 PM",
 			icon: <IconPalette size={20} />,
 		},

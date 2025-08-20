@@ -10,14 +10,15 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { databases, Query } from "@/lib/appwrite";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 // Gift Item Type
 interface GiftItem {
-	id: number;
+	id: string;
 	name: string;
 	description: string;
 	amount: number;
@@ -67,82 +68,103 @@ function GiftRegistry() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [pledgeAmount, setPledgeAmount] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [giftItems, setGiftItems] = useState<GiftItem[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [visibleItems, setVisibleItems] = useState(6);
 
-	// Sample gift data
-	const giftItems: GiftItem[] = [
-		{
-			id: 1,
-			name: "Honeymoon Fund",
-			description: "Contribute to our dream honeymoon in Bali",
-			amount: 500000,
-			category: "Experience",
-			pledged: 250000,
-			totalNeeded: 500000,
-			image: "/images/mb4.png",
-			details:
-				"Help us create unforgettable memories with a honeymoon in Bali. This includes flights, accommodation, and experiences.",
-		},
-		{
-			id: 2,
-			name: "Kitchen Appliances Set",
-			description: "High-quality appliances for our new home",
-			amount: 350000,
-			category: "Home",
-			pledged: 175000,
-			totalNeeded: 350000,
-			image: "/images/kitchen.webp",
-			details:
-				"A complete set of kitchen appliances including refrigerator, oven, microwave, and blender for our new home.",
-		},
-		{
-			id: 3,
-			name: "Furniture Fund",
-			description: "Help us furnish our new apartment",
-			amount: 750000,
-			category: "Home",
-			pledged: 300000,
-			totalNeeded: 750000,
-			image: "/images/bed.jpg",
-			details:
-				"Contribute towards our living room set, bedroom furniture, and dining table for our new home.",
-		},
-		{
-			id: 4,
-			name: "Charity Donation",
-			description: "Donate to our favorite charity in our name",
-			amount: 200000,
-			category: "Charity",
-			pledged: 100000,
-			totalNeeded: 200000,
-			image: "/images/char.jpeg",
-			details:
-				"Instead of a gift for us, consider donating to the Red Cross in our name to help those in need.",
-		},
-		{
-			id: 5,
-			name: "Adventure Experience",
-			description: "Fund an adventurous experience for us",
-			amount: 300000,
-			category: "Experience",
-			pledged: 150000,
-			totalNeeded: 300000,
-			image: "/images/vac.jpg",
-			details:
-				"Help us enjoy an adventurous experience like scuba diving, hot air balloon ride, or safari tour.",
-		},
-		{
-			id: 6,
-			name: "Home Renovation Fund",
-			description: "Contribute to our home renovation project",
-			amount: 1000000,
-			category: "Home",
-			pledged: 400000,
-			totalNeeded: 1000000,
-			image: "/images/renovate.jpg",
-			details:
-				"We're planning some renovations to make our home more comfortable. Any contribution is appreciated!",
-		},
-	];
+	// Fetch gift items from Appwrite
+	useEffect(() => {
+		const fetchGiftItems = async () => {
+			try {
+				setLoading(true);
+				const response = await databases.listDocuments(
+					"68a5e939001882ddb1bb",
+					"68a5e951003bfe33155e",
+					[Query.limit(100), Query.orderAsc("$createdAt")]
+				);
+
+				setGiftItems(response.documents as unknown as GiftItem[]);
+			} catch (error) {
+				console.error("Error fetching gift items:", error);
+				toast.error("Failed to load gift items");
+
+				// Fallback to sample data
+				setGiftItems([
+					{
+						id: "1",
+						name: "Honeymoon Fund",
+						description: "Contribute to our dream honeymoon in Bali",
+						amount: 500000,
+						category: "Experience",
+						pledged: 250000,
+						totalNeeded: 500000,
+						image: "/images/mb4.png",
+						details:
+							"Help us create unforgettable memories with a honeymoon in Bali.",
+					},
+					{
+						id: "2",
+						name: "Kitchen Appliances Set",
+						description: "High-quality appliances for our new home",
+						amount: 350000,
+						category: "Home",
+						pledged: 175000,
+						totalNeeded: 350000,
+						image: "/images/kitchen.webp",
+						details: "Complete set of kitchen appliances.",
+					},
+					{
+						id: "3",
+						name: "Furniture Fund",
+						description: "Help us furnish our new apartment",
+						amount: 750000,
+						category: "Home",
+						pledged: 300000,
+						totalNeeded: 750000,
+						image: "/images/bed.jpg",
+						details: "Contribute towards our living room set.",
+					},
+					{
+						id: "4",
+						name: "Charity Donation",
+						description: "Donate to our favorite charity",
+						amount: 200000,
+						category: "Charity",
+						pledged: 100000,
+						totalNeeded: 200000,
+						image: "/images/char.jpeg",
+						details: "Instead of a gift for us, consider donating.",
+					},
+					{
+						id: "5",
+						name: "Adventure Experience",
+						description: "Fund an adventurous experience for us",
+						amount: 300000,
+						category: "Experience",
+						pledged: 150000,
+						totalNeeded: 300000,
+						image: "/images/vac.jpg",
+						details: "Help us enjoy an adventurous experience.",
+					},
+					{
+						id: "6",
+						name: "Home Renovation Fund",
+						description: "Contribute to our home renovation project",
+						amount: 1000000,
+						category: "Home",
+						pledged: 400000,
+						totalNeeded: 1000000,
+						image: "/images/renovate.jpg",
+						details: "We're planning some renovations.",
+					},
+				]);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchGiftItems();
+	}, []);
 
 	const formatCurrency = (amount: number) =>
 		new Intl.NumberFormat("en-NG", {
@@ -161,7 +183,6 @@ function GiftRegistry() {
 	const initializePaystackPayment = (item: GiftItem, amount: number) => {
 		setIsLoading(true);
 
-		// Load Paystack script dynamically
 		const script = document.createElement("script");
 		script.src = "https://js.paystack.co/v1/inline.js";
 		script.async = true;
@@ -191,8 +212,7 @@ function GiftRegistry() {
 						)} towards ${item.name}`,
 					});
 					setIsLoading(false);
-					console.log("Paystack response:", response);
-					// Update your database here
+					updatePledgedAmount(item.id, amount);
 				},
 				onClose: () => {
 					toast.info("Payment cancelled");
@@ -211,6 +231,33 @@ function GiftRegistry() {
 		document.body.appendChild(script);
 	};
 
+	const updatePledgedAmount = async (itemId: string, amount: number) => {
+		try {
+			const itemToUpdate = giftItems.find((item) => item.id === itemId);
+			if (!itemToUpdate) return;
+
+			const newPledgedAmount = itemToUpdate.pledged + amount;
+
+			await databases.updateDocument(
+				"68a5e939001882ddb1bb",
+				"68a5e951003bfe33155e",
+				itemId,
+				{ pledged: newPledgedAmount }
+			);
+
+			setGiftItems((prevItems) =>
+				prevItems.map((item) =>
+					item.id === itemId ? { ...item, pledged: newPledgedAmount } : item
+				)
+			);
+
+			toast.success("Pledge updated successfully!");
+		} catch (error) {
+			console.error("Error updating pledge:", error);
+			toast.error("Failed to update pledge amount");
+		}
+	};
+
 	const handlePledge = (item: GiftItem, amount: number) => {
 		if (amount <= 0) {
 			toast.error("Please enter a valid amount");
@@ -219,6 +266,10 @@ function GiftRegistry() {
 		setSelectedItem(item);
 		setPledgeAmount(amount);
 		initializePaystackPayment(item, amount);
+	};
+
+	const loadMore = () => {
+		setVisibleItems((prev) => prev + 6);
 	};
 
 	// Animation variants
@@ -235,6 +286,24 @@ function GiftRegistry() {
 		visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 	};
 
+	if (loading) {
+		return (
+			<div>
+				<Header />
+				<div className="p-4 border rounded-lg border-[#EDE6E2] w-[96%] mx-auto mt-0 sm:mt-4">
+					<BreadCrumb
+						img="/images/registry.png"
+						title="Gift Registry"
+						description="A curated selection of gifts to celebrate our special day."
+					/>
+					<div className="flex justify-center items-center h-64">
+						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D69A0F]"></div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div>
 			<Header />
@@ -246,18 +315,19 @@ function GiftRegistry() {
 					description="A curated selection of gifts to celebrate our special day."
 				/>
 
-				{/* Gift Items Grid */}
+				{/* Gift Items Grid - Fixed: Added key prop to the motion.div wrapper */}
 				<motion.div
+					key="gift-items-grid" // Added unique key here
 					variants={containerVariants}
 					initial="hidden"
 					animate="visible"
 					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-					{giftItems.map((item) => {
+					{giftItems.slice(0, visibleItems).map((item) => {
 						const progress = calculateProgress(item.pledged, item.totalNeeded);
 
 						return (
 							<motion.div
-								key={item.id}
+								key={item.id} // This key is correct
 								variants={itemVariants}
 								className="border border-[#EDE6E2] rounded-lg overflow-hidden hover:shadow-md transition-shadow">
 								<div className="relative h-48 w-full">
@@ -283,7 +353,6 @@ function GiftRegistry() {
 											<span>Pledged: {formatCurrency(item.pledged)}</span>
 											<span>Goal: {formatCurrency(item.totalNeeded)}</span>
 										</div>
-										{/* Custom Progress Bar */}
 										<div className="w-full bg-gray-200 h-2 rounded">
 											<div
 												className="bg-[#D69A0F] h-2 rounded"
@@ -316,6 +385,24 @@ function GiftRegistry() {
 						);
 					})}
 				</motion.div>
+
+				{/* Load More Button */}
+				{visibleItems < giftItems.length && (
+					<div className="flex justify-center mt-8">
+						<Button
+							onClick={loadMore}
+							variant="outline"
+							className="border-[#D69A0F] text-[#D69A0F] hover:bg-[#D69A0F] hover:text-white">
+							Load More Gifts
+						</Button>
+					</div>
+				)}
+
+				{giftItems.length === 0 && (
+					<div className="text-center py-12">
+						<p className="text-gray-500">No gift items available yet.</p>
+					</div>
+				)}
 			</div>
 
 			{/* Gift Details Dialog */}
@@ -350,7 +437,6 @@ function GiftRegistry() {
 									<span>Pledged: {formatCurrency(selectedItem.pledged)}</span>
 									<span>Goal: {formatCurrency(selectedItem.totalNeeded)}</span>
 								</div>
-								{/* Custom Progress Bar */}
 								<div className="w-full bg-gray-200 h-2 rounded">
 									<div
 										className="bg-[#D69A0F] h-2 rounded"

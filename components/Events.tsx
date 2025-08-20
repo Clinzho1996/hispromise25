@@ -43,7 +43,7 @@ function Events() {
 	const events = [
 		{
 			title: "Traditional Ceremony",
-			date: new Date("2023-10-25T10:00:00"),
+			date: new Date("2025-10-25T10:00:00"),
 			location: "Ibeshe, Ikorodu, Lagos",
 			description: "Join us for our traditional wedding ceremony",
 		},

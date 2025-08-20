@@ -10,7 +10,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { databases, Query } from "@/lib/appwrite";
+import { databases } from "@/lib/appwrite";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -74,92 +74,61 @@ function GiftRegistry() {
 
 	// Fetch gift items from Appwrite
 	useEffect(() => {
+		// Replace the fetchGiftItems function in your useEffect:
 		const fetchGiftItems = async () => {
 			try {
 				setLoading(true);
-				const response = await databases.listDocuments(
-					"68a5e939001882ddb1bb",
-					"68a5e951003bfe33155e",
-					[Query.limit(100), Query.orderAsc("$createdAt")]
-				);
+				const response = await fetch("/api/gift-items");
 
-				setGiftItems(response.documents as unknown as GiftItem[]);
+				if (!response.ok) {
+					throw new Error("Failed to fetch gift items");
+				}
+
+				const data = await response.json();
+				setGiftItems(data as GiftItem[]);
 			} catch (error) {
 				console.error("Error fetching gift items:", error);
 				toast.error("Failed to load gift items");
-
-				// Fallback to sample data
-				setGiftItems([
-					{
-						id: "1",
-						name: "Honeymoon Fund",
-						description: "Contribute to our dream honeymoon in Bali",
-						amount: 500000,
-						category: "Experience",
-						pledged: 250000,
-						totalNeeded: 500000,
-						image: "/images/mb4.png",
-						details:
-							"Help us create unforgettable memories with a honeymoon in Bali.",
-					},
-					{
-						id: "2",
-						name: "Kitchen Appliances Set",
-						description: "High-quality appliances for our new home",
-						amount: 350000,
-						category: "Home",
-						pledged: 175000,
-						totalNeeded: 350000,
-						image: "/images/kitchen.webp",
-						details: "Complete set of kitchen appliances.",
-					},
-					{
-						id: "3",
-						name: "Furniture Fund",
-						description: "Help us furnish our new apartment",
-						amount: 750000,
-						category: "Home",
-						pledged: 300000,
-						totalNeeded: 750000,
-						image: "/images/bed.jpg",
-						details: "Contribute towards our living room set.",
-					},
-					{
-						id: "4",
-						name: "Charity Donation",
-						description: "Donate to our favorite charity",
-						amount: 200000,
-						category: "Charity",
-						pledged: 100000,
-						totalNeeded: 200000,
-						image: "/images/char.jpeg",
-						details: "Instead of a gift for us, consider donating.",
-					},
-					{
-						id: "5",
-						name: "Adventure Experience",
-						description: "Fund an adventurous experience for us",
-						amount: 300000,
-						category: "Experience",
-						pledged: 150000,
-						totalNeeded: 300000,
-						image: "/images/vac.jpg",
-						details: "Help us enjoy an adventurous experience.",
-					},
-					{
-						id: "6",
-						name: "Home Renovation Fund",
-						description: "Contribute to our home renovation project",
-						amount: 1000000,
-						category: "Home",
-						pledged: 400000,
-						totalNeeded: 1000000,
-						image: "/images/renovate.jpg",
-						details: "We're planning some renovations.",
-					},
-				]);
 			} finally {
 				setLoading(false);
+			}
+		};
+
+		// Replace the updatePledgedAmount function:
+		const updatePledgedAmount = async (itemId: string, amount: number) => {
+			try {
+				const itemToUpdate = giftItems.find((item) => item.id === itemId);
+				if (!itemToUpdate) return;
+
+				const newPledgedAmount = itemToUpdate.pledged + amount;
+
+				// Update via API route
+				const response = await fetch("/api/gift-items", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						documentId: itemId,
+						pledged: newPledgedAmount,
+					}),
+				});
+
+				if (!response.ok) {
+					throw new Error("Failed to update pledge");
+				}
+
+				// Update local state
+				setGiftItems((prevItems) =>
+					prevItems.map((item) =>
+						item.id === itemId ? { ...item, pledged: newPledgedAmount } : item
+					)
+				);
+
+				toast.success("Pledge updated successfully!");
+			} catch (error) {
+				console.error("Error updating pledge:", error);
+				toast.error("Failed to update pledge amount");
 			}
 		};
 

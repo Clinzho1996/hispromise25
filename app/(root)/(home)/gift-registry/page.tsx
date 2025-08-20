@@ -292,7 +292,7 @@ function GiftRegistry() {
 
 			{/* Gift Details Dialog */}
 			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-				<DialogContent className="max-w-2xl bg-white max-h-[80vh] overflow-y-auto">
+				<DialogContent className="sm:max-w-2xl w-[95%] mx-auto bg-white max-h-[80vh] overflow-y-auto">
 					{" "}
 					{/* Added max height and scroll */}
 					{selectedItem && (

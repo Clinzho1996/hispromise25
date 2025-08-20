@@ -10,13 +10,12 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 
-// Define types
+// Gift Item Type
 interface GiftItem {
 	id: number;
 	name: string;
@@ -29,9 +28,37 @@ interface GiftItem {
 	details: string;
 }
 
+// Paystack Types
+interface PaystackResponse {
+	status: "success";
+	message: string;
+	reference: string;
+	transaction: string;
+	trxref: string;
+}
+
+interface PaystackPop {
+	setup(options: {
+		key: string;
+		email: string;
+		amount: number;
+		currency?: string;
+		ref: string;
+		metadata?: {
+			custom_fields: Array<{
+				display_name: string;
+				variable_name: string;
+				value: string;
+			}>;
+		};
+		callback: (response: PaystackResponse) => void;
+		onClose: () => void;
+	}): { openIframe: () => void };
+}
+
 declare global {
 	interface Window {
-		PaystackPop: any;
+		PaystackPop: PaystackPop;
 	}
 }
 
@@ -117,16 +144,14 @@ function GiftRegistry() {
 		},
 	];
 
-	const formatCurrency = (amount: number) => {
-		return new Intl.NumberFormat("en-NG", {
+	const formatCurrency = (amount: number) =>
+		new Intl.NumberFormat("en-NG", {
 			style: "currency",
 			currency: "NGN",
 		}).format(amount);
-	};
 
-	const calculateProgress = (pledged: number, totalNeeded: number) => {
-		return (pledged / totalNeeded) * 100;
-	};
+	const calculateProgress = (pledged: number, totalNeeded: number) =>
+		(pledged / totalNeeded) * 100;
 
 	const handleViewDetails = (item: GiftItem) => {
 		setSelectedItem(item);
@@ -146,8 +171,8 @@ function GiftRegistry() {
 				key:
 					process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY ||
 					"pk_test_your_public_key",
-				email: "guest@example.com", // In a real app, collect this from user
-				amount: amount * 100, // Convert to kobo
+				email: "guest@example.com",
+				amount: amount * 100,
 				currency: "NGN",
 				ref: "GIFT_" + new Date().getTime(),
 				metadata: {
@@ -159,16 +184,17 @@ function GiftRegistry() {
 						},
 					],
 				},
-				callback: function (response: any) {
+				callback: (response: PaystackResponse) => {
 					toast.success("Payment successful!", {
 						description: `Thank you for pledging ${formatCurrency(
 							amount
 						)} towards ${item.name}`,
 					});
 					setIsLoading(false);
+					console.log("Paystack response:", response);
 					// Update your database here
 				},
-				onClose: function () {
+				onClose: () => {
 					toast.info("Payment cancelled");
 					setIsLoading(false);
 				},
@@ -186,6 +212,10 @@ function GiftRegistry() {
 	};
 
 	const handlePledge = (item: GiftItem, amount: number) => {
+		if (amount <= 0) {
+			toast.error("Please enter a valid amount");
+			return;
+		}
 		setSelectedItem(item);
 		setPledgeAmount(amount);
 		initializePaystackPayment(item, amount);
@@ -196,21 +226,13 @@ function GiftRegistry() {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-			},
+			transition: { staggerChildren: 0.1 },
 		},
 	};
 
 	const itemVariants = {
 		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.5,
-			},
-		},
+		visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 	};
 
 	return (
@@ -230,63 +252,69 @@ function GiftRegistry() {
 					initial="hidden"
 					animate="visible"
 					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-					{giftItems.map((item) => (
-						<motion.div
-							key={item.id}
-							variants={itemVariants}
-							className="border border-[#EDE6E2] rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-							<div className="relative h-48 w-full">
-								<Image
-									src={item.image}
-									alt={item.name}
-									fill
-									className="object-cover"
-								/>
-								<div className="absolute top-2 right-2 bg-white px-2 py-1 rounded text-xs font-semibold">
-									{item.category}
-								</div>
-							</div>
+					{giftItems.map((item) => {
+						const progress = calculateProgress(item.pledged, item.totalNeeded);
 
-							<div className="p-4">
-								<h3 className="font-semibold text-lg mb-1">{item.name}</h3>
-								<p className="text-sm text-gray-600 mb-3">{item.description}</p>
-
-								<div className="mb-3">
-									<div className="flex justify-between text-sm mb-1">
-										<span>Pledged: {formatCurrency(item.pledged)}</span>
-										<span>Goal: {formatCurrency(item.totalNeeded)}</span>
-									</div>
-									<Progress
-										value={calculateProgress(item.pledged, item.totalNeeded)}
-										className="h-2 bg-gray-200"
+						return (
+							<motion.div
+								key={item.id}
+								variants={itemVariants}
+								className="border border-[#EDE6E2] rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+								<div className="relative h-48 w-full">
+									<Image
+										src={item.image}
+										alt={item.name}
+										fill
+										className="object-cover"
 									/>
-									<div className="text-xs text-gray-500 mt-1 text-right">
-										{Math.round(
-											calculateProgress(item.pledged, item.totalNeeded)
-										)}
-										% funded
+									<div className="absolute top-2 right-2 bg-white px-2 py-1 rounded text-xs font-semibold">
+										{item.category}
 									</div>
 								</div>
 
-								<div className="flex justify-between mt-4">
-									<Button
-										variant="outline"
-										onClick={() => handleViewDetails(item)}
-										className="text-sm">
-										View Details
-									</Button>
-									<Button
-										onClick={() => handlePledge(item, 10000)}
-										className="bg-[#D69A0F] hover:bg-[#bc390d] text-white text-sm"
-										disabled={isLoading}>
-										{isLoading
-											? "Processing..."
-											: `Pledge ${formatCurrency(10000)}`}
-									</Button>
+								<div className="p-4">
+									<h3 className="font-semibold text-lg mb-1">{item.name}</h3>
+									<p className="text-sm text-gray-600 mb-3">
+										{item.description}
+									</p>
+
+									<div className="mb-3">
+										<div className="flex justify-between text-sm mb-1">
+											<span>Pledged: {formatCurrency(item.pledged)}</span>
+											<span>Goal: {formatCurrency(item.totalNeeded)}</span>
+										</div>
+										{/* Custom Progress Bar */}
+										<div className="w-full bg-gray-200 h-2 rounded">
+											<div
+												className="bg-[#D69A0F] h-2 rounded"
+												style={{ width: `${progress}%` }}
+											/>
+										</div>
+										<div className="text-xs text-gray-500 mt-1 text-right">
+											{Math.round(progress)}% funded
+										</div>
+									</div>
+
+									<div className="flex justify-between mt-4">
+										<Button
+											variant="outline"
+											onClick={() => handleViewDetails(item)}
+											className="text-sm">
+											View Details
+										</Button>
+										<Button
+											onClick={() => handlePledge(item, 50000)}
+											className="bg-[#D69A0F] hover:bg-[#bc390d] text-white text-sm"
+											disabled={isLoading}>
+											{isLoading
+												? "Processing..."
+												: `Pledge ${formatCurrency(50000)}`}
+										</Button>
+									</div>
 								</div>
-							</div>
-						</motion.div>
-					))}
+							</motion.div>
+						);
+					})}
 				</motion.div>
 			</div>
 
@@ -322,13 +350,18 @@ function GiftRegistry() {
 									<span>Pledged: {formatCurrency(selectedItem.pledged)}</span>
 									<span>Goal: {formatCurrency(selectedItem.totalNeeded)}</span>
 								</div>
-								<Progress
-									value={calculateProgress(
-										selectedItem.pledged,
-										selectedItem.totalNeeded
-									)}
-									className="h-2 bg-gray-200"
-								/>
+								{/* Custom Progress Bar */}
+								<div className="w-full bg-gray-200 h-2 rounded">
+									<div
+										className="bg-[#D69A0F] h-2 rounded"
+										style={{
+											width: `${calculateProgress(
+												selectedItem.pledged,
+												selectedItem.totalNeeded
+											)}%`,
+										}}
+									/>
+								</div>
 								<div className="text-xs text-gray-500 mt-1 text-right">
 									{Math.round(
 										calculateProgress(
@@ -343,34 +376,16 @@ function GiftRegistry() {
 							<div className="mt-6">
 								<h4 className="font-semibold mb-3">Make a Pledge</h4>
 								<div className="grid grid-cols-2 gap-3">
-									<Button
-										onClick={() => handlePledge(selectedItem, 5000)}
-										variant="outline"
-										className="text-sm"
-										disabled={isLoading}>
-										{formatCurrency(5000)}
-									</Button>
-									<Button
-										onClick={() => handlePledge(selectedItem, 10000)}
-										variant="outline"
-										className="text-sm"
-										disabled={isLoading}>
-										{formatCurrency(10000)}
-									</Button>
-									<Button
-										onClick={() => handlePledge(selectedItem, 20000)}
-										variant="outline"
-										className="text-sm"
-										disabled={isLoading}>
-										{formatCurrency(20000)}
-									</Button>
-									<Button
-										onClick={() => handlePledge(selectedItem, 50000)}
-										variant="outline"
-										className="text-sm"
-										disabled={isLoading}>
-										{formatCurrency(50000)}
-									</Button>
+									{[5000, 10000, 20000, 50000].map((amount) => (
+										<Button
+											key={amount}
+											onClick={() => handlePledge(selectedItem, amount)}
+											variant="outline"
+											className="text-sm"
+											disabled={isLoading}>
+											{formatCurrency(amount)}
+										</Button>
+									))}
 								</div>
 
 								<div className="mt-4">
@@ -385,7 +400,9 @@ function GiftRegistry() {
 											onChange={(e) => setPledgeAmount(Number(e.target.value))}
 										/>
 										<Button
-											onClick={() => handlePledge(selectedItem, pledgeAmount)}
+											onClick={() =>
+												selectedItem && handlePledge(selectedItem, pledgeAmount)
+											}
 											className="bg-[#D69A0F] hover:bg-[#bc390d] text-white"
 											disabled={isLoading}>
 											{isLoading ? "Processing..." : "Pledge"}

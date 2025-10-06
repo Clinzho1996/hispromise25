@@ -10,7 +10,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-	title: "Confidence Emonena & Promise Ogobi – Two hearts One Story",
+	title: "Confidence Emonena & Promise Ogobi – Two hearts, One Story",
 	description:
 		"Celebrate the love story of Confidence Emonena & Promise Ogobi. From how we met to ‘I Do’ – RSVP to our wedding, explore events, browse our gallery, and share in the joy.",
 	keywords: [

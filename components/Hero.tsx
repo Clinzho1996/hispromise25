@@ -35,7 +35,7 @@ function Hero() {
 	const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 	const [isCopied, setIsCopied] = useState(false);
 	const [isInView, setIsInView] = useState(false); // Track if component is in view
-	const websiteUrl = "https://hispromise25.vercel.app";
+	const websiteUrl = "https://promise.devclinton.org";
 
 	// Set up intersection observer to detect when component is in view
 	useEffect(() => {
@@ -114,7 +114,7 @@ function Hero() {
 	};
 
 	// Target date: December 6, 2025 at 9:00 AM
-	const targetDate = new Date("December 6, 2025 09:00:00").getTime();
+	const targetDate = new Date("December 20, 2025 09:00:00").getTime();
 
 	useEffect(() => {
 		const timer = setInterval(() => {
@@ -282,11 +282,11 @@ function Hero() {
 						<div className="flex flex-row justify-start items-center w-full gap-3">
 							<div>
 								<Image
-									src="/images/kiss.png"
+									src="/images/us9.jpg"
 									alt="Link Preview"
 									width={100}
 									height={100}
-									className="rounded-lg"
+									className="rounded-lg h-[100px] object-cover object-top"
 								/>
 							</div>
 							<div>
@@ -318,18 +318,18 @@ function Hero() {
 									copyToClipboard();
 								}
 							}}
-							className={`${spaceGrotesk.className} bg-[#D69A0F] text-white font-semibold`}>
+							className={`${spaceGrotesk.className} bg-[#4d080d] text-white font-semibold`}>
 							<IconSend /> Share Now
 						</Button>
 					</div>
 				</div>
 			</Modal>
 			<Image
-				src="/images/cp.png"
+				src="/images/us5.jpg"
 				alt="Hero Image"
 				width={500}
 				height={300}
-				className="object-cover w-full rounded-lg"
+				className="object-cover w-full h-[500px] rounded-lg object-top"
 			/>
 			<div className="flex flex-col w-full border p-4 rounded-lg gap-2 border-[#EDE6E2] h-full">
 				<h2
@@ -372,7 +372,7 @@ function Hero() {
 
 					<Button
 						onClick={openModal}
-						className={`${spaceGrotesk.className} bg-[#D69A0F] text-white font-semibold`}>
+						className={`${spaceGrotesk.className} bg-[#4d080d] text-white font-semibold`}>
 						<IconShare /> Share
 					</Button>
 				</div>

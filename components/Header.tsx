@@ -88,7 +88,7 @@ function Header() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [isCopied, setIsCopied] = useState(false);
 	const searchRef = useRef<HTMLDivElement>(null);
-	const websiteUrl = "https://hispromise25.vercel.app";
+	const websiteUrl = "https://promise.devclinton.org";
 
 	// Close search when clicking outside
 	useEffect(() => {
@@ -265,11 +265,11 @@ function Header() {
 						<div className="flex flex-row justify-start items-center w-full gap-3">
 							<div>
 								<Image
-									src="/images/kiss.png"
+									src="/images/us9.jpg"
 									alt="Link Preview"
 									width={100}
 									height={100}
-									className="rounded-lg"
+									className="rounded-lg h-[100px] object-cover object-top"
 								/>
 							</div>
 							<div>
@@ -301,7 +301,7 @@ function Header() {
 									copyToClipboard();
 								}
 							}}
-							className={`${spaceGrotesk.className} bg-[#D69A0F] text-white font-semibold`}>
+							className={`${spaceGrotesk.className} bg-[#4d080d] text-white font-semibold`}>
 							<IconSend /> Share Now
 						</Button>
 					</div>
@@ -344,7 +344,7 @@ function Header() {
 										<p className="text-sm text-[#A8A8A8]">
 											{result.description}
 										</p>
-										<span className="text-xs text-[#D69A0F] bg-[#FFF9F0] px-2 py-1 rounded-full">
+										<span className="text-xs text-[#4d080d] bg-[#FFF9F0] px-2 py-1 rounded-full">
 											{result.category}
 										</span>
 									</div>
@@ -371,7 +371,7 @@ function Header() {
 				</Button>
 
 				<Link href="/rsvp">
-					<Button className="bg-[#D69A0F] text-white font-semibold cursor-pointer">
+					<Button className="bg-[#4d080d] text-white font-semibold cursor-pointer">
 						RSVP Now
 					</Button>
 				</Link>

@@ -37,7 +37,7 @@ export default function SaveTheDateModal({
 						Clinton & Promise&apos;s Wedding
 					</p>
 					<p className="text-gray-700 mb-1 font-medium">
-						December 6, 2025 at 9:00 AM
+						December 20, 2025 at 10:00 AM
 					</p>
 					<p className="text-gray-700">
 						The Elevation Church, Ogba , Lagos state, Nigeria

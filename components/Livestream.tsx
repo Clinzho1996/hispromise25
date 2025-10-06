@@ -42,12 +42,12 @@ function Livestream() {
 	// Sample livestream details - replace with your actual stream information
 	const livestreamInfo = {
 		title: "Clinton & Promise's Wedding Ceremony",
-		date: "December 6, 2025",
+		date: "December 20, 2025",
 		time: "10:00 AM WAT",
 		description:
 			"Join us virtually as we celebrate our special day. The livestream will begin 15 minutes before the ceremony.",
 		streamUrl: "https://youtube.com/live/example-stream-id", // Replace with actual stream URL
-		joinUrl: "https://meet.example.com/wedding-clinton-promise", // Replace with actual join URL
+		joinUrl: "https://meet.google.com/tny-yxpz-cwi", // Replace with actual join URL
 	};
 
 	const handleCopyLink = () => {
@@ -58,8 +58,8 @@ function Livestream() {
 
 	const handleAddToCalendar = () => {
 		// Create calendar event for the livestream
-		const startDate = new Date("2025-12-06T10:00:00");
-		const endDate = new Date("2025-12-06T12:00:00");
+		const startDate = new Date("2025-12-20T10:00:00");
+		const endDate = new Date("2025-12-20T12:00:00");
 
 		const formattedStartDate = startDate
 			.toISOString()
@@ -152,7 +152,7 @@ function Livestream() {
 									whileTap={{ scale: 0.95 }}>
 									<Button
 										onClick={handleJoinStream}
-										className="mt-4 bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+										className="mt-4 bg-[#4d080d] hover:bg-[#bc390d] text-white">
 										Join Stream
 									</Button>
 								</motion.div>
@@ -186,7 +186,7 @@ function Livestream() {
 						</p>
 						<p className="text-sm mt-2">
 							<span className="font-medium">Link:</span>
-							<span className="truncate block text-blue-500">
+							<span className="pl-3 text-blue-500">
 								{livestreamInfo.joinUrl}
 							</span>
 						</p>
@@ -201,7 +201,7 @@ function Livestream() {
 							whileTap={{ scale: 0.98 }}>
 							<Button
 								onClick={handleJoinStream}
-								className="w-full bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+								className="w-full bg-[#4d080d] hover:bg-[#bc390d] text-white">
 								<IconPlayerPlay size={18} className="mr-2" />
 								Join Livestream
 							</Button>

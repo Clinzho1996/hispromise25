@@ -48,7 +48,7 @@ function Events() {
 	// Event details
 	const ceremony = {
 		title: "Wedding Ceremony",
-		date: "December 6, 2025",
+		date: "December 20, 2025",
 		time: "10:00 AM",
 		location: "The Elevation Church Ogba, Ikeja, Lagos",
 		dressCode: "White, Gold, and Deep Green",
@@ -62,9 +62,9 @@ function Events() {
 
 	const reception = {
 		title: "Wedding Reception",
-		date: "December 6, 2025",
+		date: "December 20, 2025",
 		time: "2:00 PM",
-		location: "Garden Terrace, Ikorodu, Lagos",
+		location: "The Elevation Church Ogba, Ikeja, Lagos",
 		dinnerDance: "Formal Dinner & Dance",
 		description:
 			"Celebrate with us over delicious food, music, and dancing as we begin our new life together.",
@@ -220,7 +220,7 @@ function Events() {
 							<div className="flex gap-3">
 								<Button
 									onClick={() => window.open(ceremony.directionsUrl, "_blank")}
-									className="flex-1 bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+									className="flex-1 bg-[#4d080d] hover:bg-[#bc390d] text-white">
 									<IconMapPin size={18} className="mr-2" />
 									Get Directions
 								</Button>
@@ -301,7 +301,7 @@ function Events() {
 							<div className="flex gap-3">
 								<Button
 									onClick={() => window.open(reception.directionsUrl, "_blank")}
-									className="flex-1 bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+									className="flex-1 bg-[#4d080d] hover:bg-[#bc390d] text-white">
 									<IconMapPin size={18} className="mr-2" />
 									Get Directions
 								</Button>
@@ -355,7 +355,7 @@ function Events() {
 
 						<div className="flex flex-col sm:flex-row gap-4 justify-center w-full flex-wrap">
 							<Link href="/rsvp">
-								<Button className="bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+								<Button className="bg-[#4d080d] hover:bg-[#bc390d] text-white">
 									RSVP Now <IconArrowRight size={18} className="ml-2" />
 								</Button>
 							</Link>

@@ -58,8 +58,8 @@ function OurStory() {
 		{
 			id: 2,
 			src: "/images/mb2.png",
-			alt: "Beach vacation",
-			caption: "Beach vacation",
+			alt: "Proposal moment",
+			caption: "The proposal",
 		},
 		{
 			id: 3,
@@ -70,8 +70,8 @@ function OurStory() {
 		{
 			id: 4,
 			src: "/images/mb6.png",
-			alt: "Proposal moment",
-			caption: "The proposal",
+			alt: "Beach Vacation",
+			caption: "Beach Vacation",
 		},
 	];
 
@@ -250,7 +250,7 @@ function OurStory() {
 							</p>
 							<Button
 								onClick={() => setIsVowsModalOpen(true)}
-								className="bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+								className="bg-[#4d080d] hover:bg-[#bc390d] text-white">
 								Read Vows
 							</Button>
 						</motion.div>
@@ -267,7 +267,7 @@ function OurStory() {
 							</p>
 							<Button
 								onClick={() => setIsMeetModalOpen(true)}
-								className="bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+								className="bg-[#4d080d] hover:bg-[#bc390d] text-white">
 								<Play size={18} className="mr-2" />
 								Watch Video
 							</Button>

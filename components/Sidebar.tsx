@@ -45,7 +45,7 @@ const Sidebar = () => {
 									alt="HisPromise Logo"
 									width={40}
 									height={40}
-									className="justify-center h-full flex object-contain"
+									className="justify-center h-full flex object-cover rounded-lg"
 								/>
 								<p
 									className={`${spaceGrotesk.className} text-lg font-semibold`}>
@@ -63,7 +63,7 @@ const Sidebar = () => {
 											alt="HisPromise Logo"
 											width={50}
 											height={50}
-											className="w-[50px] object-contain h-full flex"
+											className="w-[50px] object-contain h-full flex rounded-lg"
 										/>
 									</Link>
 								</TooltipTrigger>
@@ -117,7 +117,7 @@ const Sidebar = () => {
 								className={cn(
 									"flex items-center justify-center sm:justify-start rounded-[8px] mx-auto sm:mx-4 my-0 border-[1px] border-black w-full",
 									{
-										"shadow-inner shadow-[#bc390d] border-[1px] border-yellow-600 bg-[#D69A0F]":
+										"shadow-inner shadow-[#bc390d] border-[1px] border-yellow-600 bg-[#4d080d]":
 											isActive,
 										"p-2": !isCollapsed,
 										"p-3": isCollapsed,

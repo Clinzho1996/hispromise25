@@ -7,7 +7,6 @@ import {
 	IconLivePhoto,
 	IconPhoto,
 	IconSend,
-	IconUsers,
 } from "@tabler/icons-react";
 
 export const overviewLinks = [
@@ -50,10 +49,5 @@ export const overviewLinks = [
 		label: "GuestBook",
 		route: "/guest-book",
 		icon: IconBook,
-	},
-	{
-		label: "Future Family",
-		route: "/future-family",
-		icon: IconUsers,
 	},
 ];

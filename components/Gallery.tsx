@@ -16,51 +16,81 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 const allImages = [
 	{
 		id: 1,
-		src: "/images/mb.png",
+		src: "/images/us5.jpg",
 		alt: "Couple portrait",
 		categories: ["all", "preWedding"],
 	},
+
 	{
-		id: 2,
-		src: "/images/mb8.png",
+		id: 11,
+		src: "/images/mb6.png",
 		alt: "Romantic moment",
 		categories: ["all", "engagement"],
 	},
 	{
-		id: 3,
-		src: "/images/mb2.png",
-		alt: "Sunset photo",
-		categories: ["all", "preWedding"],
+		id: 12,
+		src: "/images/mb7.png",
+		alt: "Romantic moment",
+		categories: ["all", "engagement"],
 	},
 	{
-		id: 4,
-		src: "/images/mb3.png",
+		id: 21,
+		src: "/images/us6.jpg",
+		alt: "Couple portrait",
+		categories: ["all", "preWedding"],
+	},
+
+	{
+		id: 15,
+		src: "/images/b2.JPG",
+		alt: "Laughing together",
+		categories: ["all", "friends"],
+	},
+
+	{
+		id: 17,
+		src: "/images/b5.JPG",
 		alt: "Laughing together",
 		categories: ["all", "friends"],
 	},
 	{
+		id: 23,
+		src: "/images/us10.jpg",
+		alt: "Couple portrait",
+		categories: ["all", "preWedding"],
+	},
+
+	{
 		id: 5,
 		src: "/images/mb4.png",
 		alt: "Formal portrait",
-		categories: ["all", "family"],
-	},
-	{
-		id: 6,
-		src: "/images/mb5.png",
-		alt: "Candid moment",
 		categories: ["all", "engagement"],
 	},
 	{
-		id: 7,
-		src: "/images/mb6.png",
-		alt: "Adventure together",
+		id: 15,
+		src: "/images/m4.jpg",
+		alt: "Formal portrait",
+		categories: ["all", "clinton"],
+	},
+	{
+		id: 16,
+		src: "/images/m5.jpg",
+		alt: "Formal portrait",
+		categories: ["all", "clinton"],
+	},
+
+	{
+		id: 24,
+		src: "/images/us11.jpg",
+		alt: "Couple portrait",
 		categories: ["all", "preWedding"],
 	},
+
 	{
 		id: 8,
 		src: "/images/mb7.png",
 		alt: "Celebration",
-		categories: ["all", "knocking"],
+		categories: ["all"],
 	},
 ];
 
@@ -70,7 +100,7 @@ const galleryImages = {
 	preWedding: allImages.filter((img) => img.categories.includes("preWedding")),
 	engagement: allImages.filter((img) => img.categories.includes("engagement")),
 	knocking: allImages.filter((img) => img.categories.includes("knocking")),
-	family: allImages.filter((img) => img.categories.includes("family")),
+	clinton: allImages.filter((img) => img.categories.includes("clinton")),
 	friends: allImages.filter((img) => img.categories.includes("friends")),
 };
 
@@ -106,27 +136,22 @@ function Gallery() {
 					<TabsTrigger
 						value="preWedding"
 						className="data-[state=active]:bg-white p-3 data-[state=active]:border data-[state=active]:border-[#EDE6E2] data-[state=active]:text-dark-1 text-[#6C7278] data-[state=active]:shadow-lg">
-						Pre-Wedding
+						Introduction
 					</TabsTrigger>
 					<TabsTrigger
 						value="engagement"
 						className="data-[state=active]:bg-white p-3 data-[state=active]:border data-[state=active]:border-[#EDE6E2] data-[state=active]:text-dark-1 text-[#6C7278] data-[state=active]:shadow-lg">
-						Engagement
+						Romantic Moments
 					</TabsTrigger>
 					<TabsTrigger
-						value="knocking"
+						value="clinton"
 						className="data-[state=active]:bg-white p-3 data-[state=active]:border data-[state=active]:border-[#EDE6E2] data-[state=active]:text-dark-1 text-[#6C7278] data-[state=active]:shadow-lg">
-						Knocking
-					</TabsTrigger>
-					<TabsTrigger
-						value="family"
-						className="data-[state=active]:bg-white p-3 data-[state=active]:border data-[state=active]:border-[#EDE6E2] data-[state=active]:text-dark-1 text-[#6C7278] data-[state=active]:shadow-lg">
-						Family
+						Clinton
 					</TabsTrigger>
 					<TabsTrigger
 						value="friends"
 						className="data-[state=active]:bg-white p-3 data-[state=active]:border data-[state=active]:border-[#EDE6E2] data-[state=active]:text-dark-1 text-[#6C7278] data-[state=active]:shadow-lg">
-						Friends
+						Promise
 					</TabsTrigger>
 				</TabsList>
 
@@ -143,7 +168,7 @@ function Gallery() {
 										alt={image.alt}
 										width={300}
 										height={200}
-										className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+										className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 object-top"
 									/>
 								</div>
 							))}
@@ -168,7 +193,7 @@ function Gallery() {
 								alt={selectedImage.alt}
 								width={800}
 								height={600}
-								className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+								className="w-full h-auto max-h-[80vh] object-contain rounded-lg object-top"
 							/>
 							<DialogDescription className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-3 rounded-b-lg">
 								{selectedImage.alt}

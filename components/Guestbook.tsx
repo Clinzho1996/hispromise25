@@ -129,7 +129,7 @@ function Guestbook() {
 				<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
 					<Button
 						onClick={() => setShowForm(!showForm)}
-						className="bg-[#D69A0F] hover:bg-[#bc390d] text-white">
+						className="bg-[#4d080d] hover:bg-[#bc390d] text-white">
 						<IconMessage size={18} className="mr-2" />
 						{showForm ? "Cancel" : "Leave a Message"}
 					</Button>
@@ -173,7 +173,7 @@ function Guestbook() {
 								whileTap={{ scale: 0.95 }}>
 								<Button
 									type="submit"
-									className="self-end bg-[#D69A0F] hover:bg-[#bc390d] text-white"
+									className="self-end bg-[#4d080d] hover:bg-[#bc390d] text-white"
 									disabled={!formData.message.trim()}>
 									<IconSend size={18} className="mr-2" />
 									Post Message

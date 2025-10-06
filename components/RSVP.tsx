@@ -233,7 +233,7 @@ function RSVP() {
 				<motion.div variants={itemVariants} transition={{ delay: 0.5 }}>
 					<Button
 						type="submit"
-						className="mt-4 bg-[#D69A0F] text-white hover:bg-[#bc390d] w-fit"
+						className="mt-4 bg-[#4d080d] text-white hover:bg-[#bc390d] w-fit"
 						disabled={isSubmitting}>
 						{isSubmitting ? "Submitting..." : "Confirm Attendance"}
 					</Button>

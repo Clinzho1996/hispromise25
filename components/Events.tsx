@@ -43,20 +43,20 @@ function Events() {
 	const events = [
 		{
 			title: "Traditional Ceremony",
-			date: new Date("2025-10-25T10:00:00"),
+			date: new Date("2025-11-08T14:00:00"),
 			location: "Ibeshe, Ikorodu, Lagos",
 			description: "Join us for our traditional wedding ceremony",
 		},
 		{
 			title: "White Wedding",
-			date: new Date("2025-12-06T10:00:00"),
+			date: new Date("2025-12-20T10:00:00"),
 			location: "Elevation Church Ogba",
 			description: "Join us for our white wedding ceremony",
 		},
 		{
 			title: "Reception",
-			date: new Date("2025-12-06T14:00:00"),
-			location: "Garden Terrace, Ikorodu, Lagos",
+			date: new Date("2025-12-20T14:00:00"),
+			location: "Elevation Church Ogba",
 			description: "Join us for the wedding reception",
 		},
 	];

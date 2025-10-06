@@ -8,10 +8,10 @@ const Navbar = () => {
 			<Link href="/" className="flex flex-row justify-start items-center gap-1">
 				<Image
 					src="/images/logo.png"
-					alt="Medbankr Logo"
+					alt="HisPromise Logo"
 					width={40}
 					height={40}
-					className="justify-center h-full flex object-contain"
+					className="justify-center h-full flex object-contain rounded-lg"
 				/>
 				<p className="text-lg font-semibold">#HisPromise25</p>
 			</Link>

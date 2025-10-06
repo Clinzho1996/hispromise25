@@ -266,7 +266,7 @@ function GiftRegistry() {
 						description="A curated selection of gifts to celebrate our special day."
 					/>
 					<div className="flex justify-center items-center h-64">
-						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D69A0F]"></div>
+						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4d080d]"></div>
 					</div>
 				</div>
 			</div>
@@ -324,7 +324,7 @@ function GiftRegistry() {
 										</div>
 										<div className="w-full bg-gray-200 h-2 rounded">
 											<div
-												className="bg-[#D69A0F] h-2 rounded"
+												className="bg-[#4d080d] h-2 rounded"
 												style={{ width: `${progress}%` }}
 											/>
 										</div>
@@ -342,7 +342,7 @@ function GiftRegistry() {
 										</Button>
 										<Button
 											onClick={() => handlePledge(item, 50000)}
-											className="bg-[#D69A0F] hover:bg-[#bc390d] text-white text-sm"
+											className="bg-[#4d080d] hover:bg-[#bc390d] text-white text-sm"
 											disabled={isLoading}>
 											{isLoading
 												? "Processing..."
@@ -361,7 +361,7 @@ function GiftRegistry() {
 						<Button
 							onClick={loadMore}
 							variant="outline"
-							className="border-[#D69A0F] text-[#D69A0F] hover:bg-[#D69A0F] hover:text-white">
+							className="border-[#4d080d] text-[#4d080d] hover:bg-[#4d080d] hover:text-white">
 							Load More Gifts
 						</Button>
 					</div>
@@ -408,7 +408,7 @@ function GiftRegistry() {
 								</div>
 								<div className="w-full bg-gray-200 h-2 rounded">
 									<div
-										className="bg-[#D69A0F] h-2 rounded"
+										className="bg-[#4d080d] h-2 rounded"
 										style={{
 											width: `${calculateProgress(
 												selectedItem.pledged,
@@ -458,7 +458,7 @@ function GiftRegistry() {
 											onClick={() =>
 												selectedItem && handlePledge(selectedItem, pledgeAmount)
 											}
-											className="bg-[#D69A0F] hover:bg-[#bc390d] text-white"
+											className="bg-[#4d080d] hover:bg-[#bc390d] text-white"
 											disabled={isLoading}>
 											{isLoading ? "Processing..." : "Pledge"}
 										</Button>

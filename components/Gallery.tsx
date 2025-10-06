@@ -176,7 +176,7 @@ function Gallery() {
 
 						{images.length === 0 && (
 							<div className="text-center py-8 text-gray-500">
-								<p>No photos in this category yet.</p>
+								<p>No photos in this category yet</p>
 							</div>
 						)}
 					</TabsContent>

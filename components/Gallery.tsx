@@ -28,12 +28,6 @@ const allImages = [
 		categories: ["all", "engagement"],
 	},
 	{
-		id: 12,
-		src: "/images/mb7.png",
-		alt: "Romantic moment",
-		categories: ["all", "engagement"],
-	},
-	{
 		id: 21,
 		src: "/images/us6.jpg",
 		alt: "Couple portrait",
@@ -90,7 +84,7 @@ const allImages = [
 		id: 8,
 		src: "/images/mb7.png",
 		alt: "Celebration",
-		categories: ["all"],
+		categories: ["all", "engagement"],
 	},
 ];
 
